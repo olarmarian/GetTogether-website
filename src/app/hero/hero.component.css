@@ -1,0 +1,175 @@
+.hero{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width:100%;
+    height:400px;
+    overflow: hidden;
+}
+
+h1{
+    font-size: 7rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    letter-spacing: 0.1rem;
+    color: #ffffff;
+    margin: .5em 0;
+}
+
+ .overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -10;
+    background: #000000;
+    opacity:0.5
+ }
+
+#vid{
+    position: absolute;
+    width: 100%;
+    height: auto;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-35%);
+    transform: translateX(-50%) translateY(-35%);
+    z-index: -1000;
+  }
+
+.restaurants-btn{
+    padding: .9em 1.4em;
+    margin: .7em;
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 400;
+    background-color: crimson;
+    border: none;
+    cursor: pointer;
+}
+
+.restaurants-btn:hover{
+    border-radius: 30px;
+    background-color: mediumaquamarine;
+    color: #000;
+    transition: background-color .3s;
+}
+
+.center-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-content{
+    display: flex;
+}
+
+.search-bar{
+    position: relative;
+}
+
+.search-bar input{
+    font-size: 1rem;
+    padding: 10px;
+    line-height: 2rem;
+    color: #888888;
+}
+
+.search-bar input:placeholder-shown,.search-bar input[text]{
+    padding-left: 10px;
+}
+
+.search-bar i{
+    position: absolute;
+    right: 5%;
+    top: 30%;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+ul{
+    position: absolute;
+    top: 2%;
+    right: 1%;
+    display: flex;
+    list-style-type: none;
+}
+ul li {
+    text-decoration: none;
+    color: #ffffff;
+    padding: 1em;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+ul li:hover {
+    border-bottom: 1px solid #ffffff;
+}
+
+@media screen and (max-width:1100px){
+    .hero{
+        height: 300px;
+        justify-content: space-between;
+    }
+    #vid{
+        height: 1300px;
+    }
+
+    .search-bar{
+        width: 70%;
+        overflow: hidden;
+    }
+    .search-bar input{
+        line-height: 1rem;
+    }
+
+    .center-content{
+        display: block;
+        margin: 1em;
+    }
+
+    h1{
+        font-size: 2rem;
+    }
+
+    ul li{
+        padding: .4em;
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width:700px){
+    .hero{
+        height: auto;
+        justify-content: space-between;
+    }
+    #vid{
+        height: 50em;
+    }
+}
+
+@media screen and (max-width:490px){
+    .center-content{
+        display: block;
+        text-align: center;
+    }
+    .search-bar{
+        width: 100%;
+    }
+    .search-bar input{
+        font-size: .8rem;
+        width: 80%;
+    }
+
+    #vid{
+        height: 500px;
+    }
+    .search-bar input:placeholder-shown,.search-bar input[text]{
+        padding:10px 30px 10px 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    ul{
+        margin: 0;
+    }
+}

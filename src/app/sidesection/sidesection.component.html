@@ -1,0 +1,9 @@
+<div class="side-div">
+    <h1>{{_title}}</h1>
+    <h3 *ngFor="let item of data">
+        <a [title]="item.name" [routerLink]="['/locals',item.searchName]">
+            {{item.name}}
+        </a>
+    </h3>
+    
+</div>

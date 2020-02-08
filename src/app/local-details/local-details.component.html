@@ -1,0 +1,84 @@
+<app-navbar></app-navbar>
+<div class="local-details-container" *ngIf="local!=null">
+    <div class="presentation-container">
+        <mat-carousel
+            timings="850ms ease-in"
+            [autoplay]="true"
+            interval="5000"
+            color="accent"
+            proportion="50"
+            slides="5"
+            [loop]="true"
+            [hideArrows]="false"
+            [hideIndicators]="false"
+            [useKeyboard]="true"
+            [useMouseWheel]="false"
+            orientation="ltr"
+            >
+            <mat-carousel-slide
+                #matCarouselSlide
+                *ngFor="let image of local.imagesUrl; let i = index"
+                [image]="image"
+                overlayColor="#00000040"
+                [hideOverlay]="false"
+            ></mat-carousel-slide>
+    </mat-carousel>
+    <div class="body-container">
+        <div class="details-container">
+            <div class="details-container-header">
+                <h1 class="name">{{local.name}}</h1>
+                <p class="location">{{local.location}}</p>
+            </div>
+            <div class="details-container-body">
+                <h2>Restaurant's specific</h2>
+                <p *ngFor="let specific of local.specific">{{specific}}</p>
+            </div>
+            <div class="details-container-body">
+                <h2>Restaurant's tags</h2>
+                <p *ngFor="let tag of local.tags">{{tag}}</p>
+            </div>
+        </div>
+        <div>
+            <mat-tab-group>
+                <mat-tab label="Persons">
+                    <h1>Some more tab content</h1>
+                    <p>...</p>
+                </mat-tab>
+                <mat-tab label="Date">
+                    <h1>Some tab content</h1>
+                    <p>...</p>
+                </mat-tab>
+                <mat-tab label="Hour">
+                    <h1>Some more tab content</h1>
+                    <p>...</p>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+    <div class="review-container">
+            <form class="comment-form" *ngIf="isLoggedIn">
+                    <p>
+                        <mat-form-field>
+                            <label>Stars</label><input matInput type="number" [formControl]="starsFormControl" (ngModelChange)="starsChange($event)" name="stars" />
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field>
+                            <label>Comment</label><textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5"
+                            cdkAutosizeMaxRows="10" [formControl]="commentFormControl" (ngModelChange)="commentChange($event)" name="comment"></textarea>
+                            <mat-error *ngIf="commentFormControl.hasError('required')">
+                                Comment is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </p>
+                
+                <div class="button">
+                    <button type="submit" (click)="submit()" mat-button>Send comment</button>
+                </div>
+                </form>
+                  
+        <app-review-list localId={{local.localId}} localName={{local.name}}></app-review-list>
+    </div>
+    </div>
+</div>
+

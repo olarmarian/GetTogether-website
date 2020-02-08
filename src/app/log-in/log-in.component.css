@@ -1,0 +1,223 @@
+.secondary-header{
+    height: 8em;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    z-index: -1000;
+    overflow: hidden;
+}
+
+.secondary-header-content{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ffffff;
+    width: 100%;
+    height: 8em;
+    z-index: 100;
+}
+.secondary-header-content{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.secondary-header-content .collection,
+.secondary-header-content .account{
+    list-style: none;
+    display: flex;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+}
+.secondary-header-content .collection li{
+    margin: 0 .3em;
+}
+.secondary-header-content a{
+    padding: .7em 1.6em;
+    font-size: 1.5rem;
+    text-decoration: none;
+    text-transform: none;
+    color: #ffffff;
+    text-align: center;
+    align-items: center;
+}
+.secondary-header-content ul li a:hover{
+    border-bottom: 1px solid #ffffff;   
+}
+
+
+.header-overlay{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 8em;
+    background: #000000;
+    opacity: .7;
+    z-index: -10;
+}
+
+
+.mat-card{
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    margin-top: 2em;
+}
+
+.mat-card-content{
+    width: 30em;
+    height: 45em;
+    padding: 3em;
+    margin: 3em;
+    background: rgba(0, 0, 0, .8);
+    box-sizing: border-box;
+    box-shadow: 3px 8px 10px rgba(0, 0,0,0.5);
+    border-radius: 0.5em;
+    text-align: center;
+}
+
+.mat-card-content .mat-form-field{
+    position: relative;
+    margin-bottom: 3em;
+    width: 100%;
+}
+
+.mat-card-content .mat-form-field input{
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #ffffff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #ffffff;
+    outline: none;
+    background: transparent;
+    letter-spacing: 1px;
+}
+
+.mat-card-content .mat-form-field label{
+    letter-spacing: 1px;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #ffffff;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.mat-card-content .mat-form-field input:focus ~ label,
+.mat-card-content .mat-form-field input:valid ~ label{
+    top: -18px;
+    left: 0;
+    color: #03a9f4;
+    font-size: 12px;
+}
+
+.mat-card-content button{
+    border: none;
+    outline: none;
+    color: #ffffff;
+    font-weight: lighter;
+    font-size: 1rem;
+    background: #03a9f4;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 70%;
+}
+
+.mat-card-content button:hover{
+    background: #888888;
+}
+
+.mat-card-content .mat-error{
+    color: red;
+    width: 100%;
+}
+.mat-card-content h1{
+    font-size: 2rem;
+    font-weight: normal;
+    color: #ffffff;
+}
+
+.menu{
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+}
+
+.menu-btn {
+display: none;
+}
+
+.responsive-menu{
+    position: absolute;
+    top: 6em;
+    right: 1em;
+    display: flex;
+    flex-direction: column;
+    transition: 3s;
+}
+
+.responsive-menu .collection{
+    display: block;
+    background: #ffffff;
+    padding: 0;
+    box-shadow: 2px 5px 5px #000000;
+    border-radius: 10px;
+    height: auto;
+}
+.responsive-menu .collection li{
+    padding: 1.4em;
+    border-bottom: 1px solid #000000;
+}
+.responsive-menu .collection li:hover{
+    border-bottom: 1px solid #cecece;
+}
+.responsive-menu .collection li a{
+    color: #000000;
+    width: 100%;
+}
+
+.responsive-menu .collection li a:hover{
+    border-bottom: none;
+}
+
+.hide{
+    display: none;
+    transition: 3s;
+
+}
+#title{
+    font-size: 2.3rem;
+}
+
+@media screen and (max-width:1300px) {
+    .menu ul li a{
+        padding: 0 .3em;
+    }
+    
+}
+@media screen and (max-width:980px) {
+    #title{
+        font-size: 2em;
+    }
+    .menu {
+        display: none;
+    }
+
+    .menu-btn {
+        display: block;
+        cursor: pointer;
+        font-size: 1.7em;
+        margin-right: 2em;
+    }
+    .mat-card-content button{
+        width: 100%;
+    }
+
+}

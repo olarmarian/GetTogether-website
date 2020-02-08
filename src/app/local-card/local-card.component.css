@@ -1,0 +1,59 @@
+.local-card{
+    width: 300px;
+    height: 25em;
+    background-color: #ffffff;
+    box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22);
+    transition: 0.4s;
+    border-radius: 10px;
+    padding-bottom: 1em;
+    cursor: pointer;
+}
+
+.local-card img{
+    width: 100%;
+    height: 13em;
+}
+
+.local-card:hover{
+    transform: scale(0.9, 0.9);
+    box-shadow: 5px 5px 30px 15px rgba(0,0,0,0.25), 
+        -5px -5px 30px 15px rgba(0,0,0,0.22);
+}
+
+.local-card h1,
+.local-card p
+{
+    padding: 0 .9em;
+    margin: .3em 0;
+    width: 100%;
+    max-height: 40px;
+    word-wrap: break-word;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+}
+
+.local-card h1{
+    font-size: 1.3rem;
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: 'M PLUS 1p', sans-serif;
+}
+
+.local-card img{
+    max-width: 300px;
+    max-height: 250px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+@media screen and (max-width:700px){
+    .local-card h1{
+        font-size: .8rem;
+    }
+
+    .local-card p{
+        font-size: 1rem;
+    }
+}

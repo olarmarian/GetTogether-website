@@ -1,0 +1,9 @@
+<div class="metadata">
+    <div class="head" (click)="handleMenuSection()">
+        <h2 class="title-metadata">{{title}}</h2>
+        <span [class.span-open]="!isClosed" [class.span-closed]="isClosed"></span>
+    </div>
+    <section class="list-metadata" [class.isClosed]="isClosed" [class.isOpen]="!isClosed">
+        <mat-checkbox class="list-metadata-item" *ngFor="let item of elements.split(',')">{{item}}</mat-checkbox>
+    </section>
+</div>

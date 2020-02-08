@@ -1,0 +1,21 @@
+<div class="review-list-container">
+    <h1 class="title">Reviews about {{localName}}</h1>
+    <div class="review-list-items" *ngIf="isDataLoaded()">
+        <div *ngIf="reviews.length!==0">
+            <mat-card *ngFor="let review of reviews" class="review-card">
+                <div>
+                    <p>User: {{review.userEmail}}</p>
+                    <p>Date: {{review.createdAt}}</p>
+                    <p>Stars: {{review.stars}}</p>
+                </div>
+                <div>
+                    <h2>Comment:</h2>
+                    <p class="review-card-text"> {{review.text}}</p>
+                </div>
+            </mat-card>                    
+        </div>
+        <div *ngIf="reviews.length===0">
+            <p>No reviews found</p>
+        </div>
+    </div>
+</div>

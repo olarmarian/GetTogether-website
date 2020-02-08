@@ -1,0 +1,57 @@
+<div class="header-overlay"></div>
+<div class="secondary-header">
+    <img src="https://images.pexels.com/photos/1058277/pexels-photo-1058277.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="header">
+</div>
+<div class="secondary-header-content">
+    <a id="title" [routerLink]="['/']" routerLinkActive="router-link-active" >GetTogether</a>
+    <div class="menu">
+        <ul class="collection">
+            <li><a [routerLink]="['/locals/tag/romantic']" routerLinkActive="router-link-active" >Romantic Locals</a></li>
+            <li><a [routerLink]="['/locals/tag/party']" routerLinkActive="router-link-active" >Party Locals</a></li>
+            <li><a [routerLink]="['/locals/tag/pet']" routerLinkActive="router-link-active" >Pet Locals</a></li>
+        </ul>
+    </div>
+    <div class="responsive-menu" [class.hide]="showMenu" (window:resize)="onResize($event)">
+        <ul class="collection">
+            <li><a [routerLink]="['/locals/tag/romantic']" routerLinkActive="router-link-active" >Romantic Locals</a></li>
+            <li><a [routerLink]="['/locals/tag/party']" routerLinkActive="router-link-active" >Party Locals</a></li>
+            <li><a [routerLink]="['/locals/tag/pet']" routerLinkActive="router-link-active" >Pet Locals</a></li>
+        </ul>
+    </div>
+    <div class="menu-btn" (click)="showMenu = !showMenu">
+        <i class="fas fa-bars"></i>
+    </div>
+</div>
+<mat-card>
+    <mat-card-content>
+        <h1>Login</h1>
+        <form>
+            <p>
+                <mat-form-field>
+                    <label>Email</label><input matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                        (ngModelChange)="usernameChange($event)" name="username">
+                    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                        Please enter a valid email address
+                </mat-error>
+                    <mat-error *ngIf="emailFormControl.hasError('required')">
+                        Email is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field>
+                <label>Password</label><input matInput type="password" [formControl]="passwordFormControl" (ngModelChange)="passwordChange($event)"
+                        name="password">
+                <mat-error *ngIf="passwordFormControl.hasError('required')">
+                    Password is <strong>required</strong>
+                </mat-error>
+                </mat-form-field>
+            </p>
+        
+        <div class="button">
+            <button type="submit" (click)="submit()" mat-button>Go to your account</button>
+        </div>
+    
+        </form>
+    </mat-card-content>
+</mat-card>        

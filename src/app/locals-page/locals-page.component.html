@@ -1,0 +1,12 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <div class="local-page-root">
+        <div class="container-metadata">
+            <app-metadata title="Tags" elements={{this.tags}}></app-metadata>
+            <app-metadata title="Specifics" elements={{this.specifics}}></app-metadata>
+        </div>
+        <div class="container-locals">
+            <app-local-card *ngFor="let local of locals" [routerLink]="['/locals',local.searchName]" [local]="local"></app-local-card>
+        </div>
+    </div>
+</div>
