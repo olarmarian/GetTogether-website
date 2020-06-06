@@ -1,5 +1,5 @@
 import { ReviewsService } from './../review-service/reviews.service';
-import { UserServiceService } from './../user-service/user-service.service';
+import { UserService } from './../user-service/user-service';
 import { ILocal } from './../../utils/ILocal';
 import { LocalsService } from './../local-service/locals.service';
 import { Component, OnInit, Input } from '@angular/core';
@@ -39,7 +39,7 @@ export class LocalDetailsComponent implements OnInit {
   public stars:number = 1;
   public comment:string =  "";
   public isLoggedIn:boolean = false;
-  constructor(private route :ActivatedRoute, private localsService:LocalsService,private userService:UserServiceService, private reviewsService:ReviewsService) {
+  constructor(private route :ActivatedRoute, private localsService:LocalsService,private userService:UserService, private reviewsService:ReviewsService) {
   }
 
   ngOnInit() {

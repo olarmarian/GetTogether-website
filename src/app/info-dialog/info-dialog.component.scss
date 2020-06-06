@@ -1,0 +1,19 @@
+
+.dialog-action-group-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1em;
+
+    button{
+        background: rgba(0,212,255,1);
+        margin: 0 .5em;
+        padding: .1em 2em;
+        color: rgba(2,0,36,1) ;
+        font-weight: bold;
+    }
+
+    button:hover{
+        opacity: .7;
+    }
+}

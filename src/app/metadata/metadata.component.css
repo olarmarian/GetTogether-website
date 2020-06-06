@@ -1,9 +1,9 @@
 .metadata{
     display: flex;
-    width: 13em;
+    width: 14em;
     min-height: 1em;
     flex-direction: column;
-    background-color: #fff;
+    background-color: #f1dde5;
     border-radius: 20px;
     margin:.8em 0;
     padding: .7em;

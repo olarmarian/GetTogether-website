@@ -1,0 +1,73 @@
+@import "../../styles.scss";
+
+.mat-card{
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    height: 100%;
+    background: #ffffff;
+    font-size: 2rem;
+}
+
+.mat-card-content{
+    width: 30em;
+    margin: 6em 0 !important;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.mat-card-content .mat-form-field{
+    position: relative;
+    width: 100%;
+}
+
+.mat-card-content .mat-form-field input{
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px 10px;
+    font-size: 1.2em;
+    border: 1px solid #7042cc;
+    border-radius: 5px;
+    color: #7042cc;
+    letter-spacing: 1px;
+}
+
+.mat-card-content .mat-form-field label{
+    letter-spacing: 1px;
+    margin: 20px 0;
+    font-size: 16px;
+    color: #553e98;
+    transition: .5s;
+}
+
+.mat-card-content button{
+    outline: none;
+    color: #f1dde5;
+    font-weight: lighter;
+    font-size: 1rem;
+    background: #553e98;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 70%;
+}
+
+.mat-card-content button:hover{
+    background: #7042cc;
+}
+
+.mat-card-content h1{
+    font-size: 3rem;
+    font-weight: normal;
+    color: #553e98;
+}
+
+.menu{
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+}
+
+#title{
+    font-size: 2.3rem;
+}

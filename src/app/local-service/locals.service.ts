@@ -1,27 +1,26 @@
 import { ILocal } from './../../utils/ILocal';
 import { Injectable } from '@angular/core';
 import { Api } from '../../api/api'
-import { Observable, of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class LocalsService {
 
+  public locals:ILocal[] = [];
   constructor() { }
 
   async getLocals(){
-    let locals:ILocal[] = [];
     await Api.getAllLocals()
       .then(response =>{
         return response.json();
       })
       .then(data =>{
-        locals=data;
+        this.locals=data;
       })
       .catch(err =>{
         alert(err);
       })
-    return locals;
+    return this.locals;
   }
 
   async getLocalByName(name:string){
@@ -52,5 +51,31 @@ export class LocalsService {
         alert(err)
       })
     return metadata;
+  }
+
+  async getAllLocalTags() {
+    let tags = [];
+    await Api.getAllLocalTags()
+      .then(response => {
+        tags = response;
+      })
+    return tags;
+  }
+
+  async getAllLocalSpecifics() {
+    let specifics = [];
+    await Api.getAllLocalSpecifics()
+      .then(response => {
+        specifics = response;
+      })
+    return specifics;
+  }
+  
+
+  async saveLocal(local: any){
+    await Api.saveLocal(local)
+      .then(response => {
+        this.locals.push(response)
+      })
   }
 }

@@ -1,10 +1,8 @@
 nav{
     display: flex;
     justify-content: center;
-    border-bottom: 1px solid #999999;
-    background: rgb(2,0,36);
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,36,121,1) 14%, rgba(0,212,255,1) 100%);
-    color: #fff;
+    background:#553e98;
+    color: #f1dde5;
 }
 
 .user-actions{
@@ -20,71 +18,25 @@ ul li {
 }
 ul li:hover{
     padding-bottom: .9em;
-    border-bottom:1px solid black;
+    border-bottom:1px solid #f1dde5;
 }
 
 h1{
     cursor: pointer;
 }
 
-.search-bar{
+.navbar{
     position: relative;
     width: 70%;
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
-
-.search-bar-input {
-    position: relative;
-    width: fit-content;
-    margin-left: 3em;
-}
-
-.search-bar h1{
-    font-size: 2.3rem;
-    margin: 0.2em;
-}
-
- .search-bar-input input{
-    padding-left: 3em;
-    font-size: 1rem;
-    padding: 5px;
-    width: 100%;
-    height: 30%;
-    color: #888888;
-}
-
-.search-bar-input input:placeholder-shown, .search-bar-input input[text]{
-    padding-left: 10px;
-}
-
-.search-bar-input i{
-    position: absolute;
-    right:5%;
-    top: 20%;
-    font-size: 1.3rem;
-    color: #000;
-}
-
-@media screen and (max-width:1400px){
-    .search-bar{
-        width: 100%;
-    }
-}
-
 @media screen and (max-width:650px){
-    nav{
-        justify-content: start;
-    }
-    .search-bar{
-        width: 94%;
-        flex-direction: column;
-    }
-    .search-bar h1{
-        font-size: 1.5rem;
-    }
-    .search-bar-input{
-        margin: 0;
+    .navbar{
         width: 100%;
+    }
+    h1{
+        padding-left: 10px;
     }
 }

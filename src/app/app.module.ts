@@ -33,12 +33,17 @@ import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material";
 import { MatMenuModule } from "@angular/material/menu";
+import { MatDividerModule } from '@angular/material/divider';
 import { ReactiveFormsModule } from "@angular/forms";
 import { ReviewComponent } from './review/review.component';
 import { ReviewListComponent } from './review-list/review-list.component';
 import { LocalsPageComponent } from './locals-page/locals-page.component';
 import { MetadataComponent } from './metadata/metadata.component';
 import { LocalCardComponent } from './local-card/local-card.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { InfoDialogComponent } from './info-dialog/info-dialog.component';
+import { LocalRegisterDialogComponent } from './local-register-dialog/local-register-dialog.component';
+import { EditLocalComponent } from './edit-local/edit-local.component';
 
 
 @NgModule({
@@ -58,6 +63,14 @@ import { LocalCardComponent } from './local-card/local-card.component';
     LocalsPageComponent,
     MetadataComponent,
     LocalCardComponent,
+    UserProfileComponent,
+    InfoDialogComponent,
+    LocalRegisterDialogComponent,
+    EditLocalComponent,
+  ],
+  entryComponents: [
+    InfoDialogComponent, 
+    LocalRegisterDialogComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -80,12 +93,15 @@ import { LocalCardComponent } from './local-card/local-card.component';
     MatTabsModule,
     SlickCarouselModule,
     MatCheckboxModule,
+    MatDividerModule,
     RouterModule.forRoot([
       {path : '', component:HomepageComponent},
       {path : 'login', component:LogInComponent},
       {path : 'signup', component:SignUpComponent},
       {path : 'locals/:name', component: LocalDetailsComponent},
-      {path : 'locals', component:LocalsPageComponent}
+      {path : 'locals/:name/edit', component: EditLocalComponent},
+      {path : 'locals', component:LocalsPageComponent},
+      {path : 'account/:userId', component: UserProfileComponent},
     ]),
     BrowserAnimationsModule
   ],

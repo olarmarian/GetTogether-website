@@ -1,13 +1,12 @@
-* 
-{
+* {
     box-sizing: border-box;
+    font-family: 'Montserrat';
 }
 
 html, body{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'EB Garamond', serif;
 }
 
 .container{ 
@@ -16,6 +15,16 @@ html, body{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: lightsteelblue;
 }
 
+::ng-deep .mat-focused .mat-form-field-label {
+    color: red !important;
+}
+
+::ng-deep.mat-form-field-underline {
+    background-color: white !important;
+} 
+
+::ng-deep.mat-form-field-ripple {
+    background-color: white !important;;
+}

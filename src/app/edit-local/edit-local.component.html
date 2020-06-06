@@ -1,0 +1,61 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <h1>Edit your local's profile</h1>
+    <form>
+        <section class="input-data">
+            <p>
+                <mat-form-field>
+                <label>Name</label><input matInput type="text" [formControl]="nameFormControl" (ngModelChange)="nameChange($event)" 
+                        name="name" [errorStateMatcher]="matcher">
+                <mat-error *ngIf="nameFormControl.hasError('required')">
+                  Name is <strong>required</strong>
+                </mat-error>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field>
+                <label>Location</label><input matInput type="text" [formControl]="locationFormControl" (ngModelChange)="locationChange($event)"
+                        name="location" [errorStateMatcher]="matcher">
+                <mat-error *ngIf="locationFormControl.hasError('required')">
+                  Location is <strong>required</strong>
+                </mat-error>    
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field>
+                <label>Phone</label><input matInput type="text" [formControl]="phoneFormControl" (ngModelChange)="phoneChange($event)"
+                        name="phone" [errorStateMatcher]="matcher">
+                <mat-error *ngIf="phoneFormControl.hasError('required')">
+                  Phone is <strong>required</strong>
+                </mat-error>    
+                </mat-form-field>
+            </p>
+        </section>
+        <section>
+            <h3>Local's image</h3>
+            <div *ngIf="imagesUrl.length > 0" class="images">
+                <div *ngFor="let url of imagesUrl" class="image-div">
+                    <img [src]="url" class="local-image"/>
+                </div>
+            </div>
+            <input type="file" (change)="selectImage($event)"/>
+        </section>
+        <section>
+          <h3>Tags</h3>
+          <div class="checkbox-list">
+              <mat-checkbox *ngFor="let tag of allLocalTags" [value]="tag" (change) = "addToLocalTags($event)">{{tag}}</mat-checkbox>
+          </div>
+        </section>
+        <section>
+          <h3>Specifics</h3>
+          <div class="checkbox-list">
+              <mat-checkbox *ngFor="let specific of allLocalSpecifics" [value]="specific" (change) = "addToLocalSpecifics($event)">{{specific}}</mat-checkbox>
+          </div>
+        </section>
+        <mat-divider></mat-divider>
+        <div class="action-group-btn">
+            <button mat-button (click)="onUpdateClick()">Update local</button>
+            <button mat-button (click)="onCancelClick()">Cancel</button>
+        </div>
+      </form>
+</div>

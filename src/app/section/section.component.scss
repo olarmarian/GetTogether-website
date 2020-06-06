@@ -1,79 +1,20 @@
 .locals-container{
-    box-shadow: 1px 2px 3px;
     padding: 1em;
     margin: 3em 0;
     position: relative;
 }
+
 .inline-list {
-    overflow-x: scroll;
-    overflow-y: hidden;
-    white-space: nowrap;
-    scrollbar-width: none;
-    padding: 1em;
     display: flex;
 }
 
-::-webkit-scrollbar{
-    display: none;
-    background: transparent;
-}
-.inline-list-item {
-    width: 300px;
-    height: 25em;
-    margin: 0 1em;
-    display: block;
-    cursor: pointer;
-    background-color: #fff;
-    border: 1px solid black;
-    border-radius: 10px;
-    box-shadow:2px 2px 10px 7px rgba(0,0,0,0.25), -2px -2px 10px 7px rgba(0,0,0,0.22)
+.inline-list *{
+    margin: 1em;
 }
 
-.inline-list-item h1,
-.inline-list-item p
-{
-    font-size: .9rem;
-    margin: .3em 0;
-    padding: 0 .8em;
-    width: 100%;
-    height: auto;
-    white-space: initial;
-}
-
-.inline-list-item h1{
-    font-size: 1.3rem;
-    max-width: 300px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-family: 'M PLUS 1p', sans-serif;
-}
-
-.inline-list-item img{
-    width: 100%;
-    height: 13em;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-
-.inline-list-item:hover{
-    background-color: rgba(0,0,0,0.7);
-    color: #fff;
-    transform: scale(.9,.9);
-    z-index: 10000;
-    transition: .7s;
-}
 @media screen and (max-width:700px){
-    .inline-list-item h1{
-        font-size: 1.3rem;
-    }
-
-    .inline-list-item p{
-        font-size: 1rem;
-    }
-
-    .inline-list-item img{
-        max-width: 250px;
-        max-height: 250px;
+    .inline-list{
+        align-items: center;
+        flex-direction: column;
     }
 }

@@ -1,28 +1,4 @@
-<div class="header-overlay"></div>
-<div class="secondary-header">
-    <img src="https://images.pexels.com/photos/1058277/pexels-photo-1058277.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="header">
-</div>
-<div class="secondary-header-content">
-    <a id="title" [routerLink]="['/']" routerLinkActive="router-link-active" >GetTogether</a>
-    <div class="menu">
-        <ul class="collection">
-            <li><a [routerLink]="['/locals/tag/romantic']" routerLinkActive="router-link-active" >Romantic Locals</a></li>
-            <li><a [routerLink]="['/locals/tag/party']" routerLinkActive="router-link-active" >Party Locals</a></li>
-            <li><a [routerLink]="['/locals/tag/pet']" routerLinkActive="router-link-active" >Pet Locals</a></li>
-        </ul>
-    </div>
-    <div class="responsive-menu" [class.hide]="showMenu" (window:resize)="onResize($event)">
-        <ul class="collection">
-            <li><a [routerLink]="['/locals/tag/romantic']" routerLinkActive="router-link-active" >Romantic Locals</a></li>
-            <li><a [routerLink]="['/locals/tag/party']" routerLinkActive="router-link-active" >Party Locals</a></li>
-            <li><a [routerLink]="['/locals/tag/pet']" routerLinkActive="router-link-active" >Pet Locals</a></li>
-            <li><a [routerLink]="['/account']" routerLinkActive="router-link-active" >Account</a></li>
-        </ul>
-    </div>
-    <div class="menu-btn" (click)="showMenu = !showMenu">
-        <i class="fas fa-bars"></i>
-    </div>
-</div>
+<app-navbar></app-navbar>
 <mat-card>
     <mat-card-content>
         <h1>Sign up</h1>
@@ -76,7 +52,7 @@
             </mat-form-field>
         </p>
         <div class="button">
-            <button type="submit" (click)="submit()" mat-button>Go to your account</button>
+            <button type="submit" (click)="submit()" mat-button>Sign up</button>
         </div>
     
         </form>

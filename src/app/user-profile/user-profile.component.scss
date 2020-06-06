@@ -1,0 +1,62 @@
+.profile img{
+    width: 300px;
+    height: 300px;
+    cursor: pointer;
+}
+
+.profile img:hover{
+    opacity: .8;
+}
+
+.profile{
+    display: flex;
+    align-items: center;
+}
+
+.profile > div {
+    padding: 5em;
+}
+
+.profile-info *{
+    color: #000000 !important;
+    font-family: "Times New Roman", Times, serif;
+    width: 20em;
+}
+.active-reservation{
+    display: flex;
+    align-items: center;
+}
+
+.active-reservation * {
+    margin: 0 .6em;
+}
+
+.mat-divider {
+    border-top-color: black !important;
+}
+
+.container-content{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.reservation-history-item{
+    background-color: #fff;
+    color: #000000;
+    padding: 1em 3em;
+    border-radius: 40px;
+}
+
+#goto-local-btn{
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+#goto-local-btn:hover{
+    text-decoration: underline;
+}

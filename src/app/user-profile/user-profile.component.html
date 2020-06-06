@@ -1,0 +1,47 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <div class="container-content">
+        <div *ngIf="user!==null" class="user-details">
+            <div class="profile">
+                <div>
+                    <img 
+                        src="../../assets/no-img.png"
+                        alt="no profile img"
+                    />
+                </div>
+                <div class="profile-info">
+                    <mat-list>
+                        <mat-list-item>Name: <span> {{user.name}}</span></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item>Phone: <span> {{user.phone}}</span></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item>Email: <span> {{user.email}}</span></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item><button id="goto-local-btn" mat-raised-button (click)="openLocalPage()">Go to your local</button></mat-list-item>
+                    </mat-list>
+                </div>
+            </div>
+        </div>
+        <div class="active-reservation">
+            <div>
+                <h2>Active reservation: </h2>
+            </div>
+            <div>
+                <h2><i>None</i></h2>
+            </div>
+        </div>
+    
+        <h3>Reservations history</h3>
+    
+        <mat-list *ngIf="reservationsHistory.length !== 0">
+            <mat-list-item *ngFor="let item of reservationsHistory" class="reservation-history-item">
+                Seats: {{item.seats}} Date: {{item.date}} Hour: {{item.hour}} Status: {{item.status}}
+            </mat-list-item>
+        </mat-list>
+        <div>
+            <h3>Recommended locals</h3>
+        </div>
+    </div>
+
+</div>
+

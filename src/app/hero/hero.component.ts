@@ -1,6 +1,4 @@
-import { UserServiceService } from './../user-service/user-service.service';
-import { MatDialog } from '@angular/material';
-import { LogInComponent } from './../log-in/log-in.component';
+import { UserService } from './../user-service/user-service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -11,20 +9,20 @@ import { Router } from '@angular/router';
 })
 export class HeroComponent implements OnInit {
   title = "Get Together";
-  placeholder = "Cauta locul potrivit pentru tine si prietenii tai";
-  jwtToken:string = null;
-  constructor(private userService:UserServiceService,private router:Router) {}
+  subtitle = "Call your friends and hang out in one of ours best restaurants";
+  userId:string = null;
+  constructor(private userService:UserService,private router:Router) {}
 
   ngOnInit() {
-    this.jwtToken = localStorage.getItem('token')
+    this.userId = sessionStorage.getItem('userId')
   }
 
   isLoggedIn():boolean{
-    return this.jwtToken === null;
+    return this.userId === null;
   }
   logout(){
     this.userService.logout();
     this.router.navigateByUrl('');
-    this.jwtToken = null;
+    this.userId = null;
   }
 }

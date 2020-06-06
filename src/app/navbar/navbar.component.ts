@@ -1,4 +1,4 @@
-import { UserServiceService } from './../user-service/user-service.service';
+import { UserService } from './../user-service/user-service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -9,16 +9,18 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private router:Router, private userService:UserServiceService) { }
+  userId:string;
+  constructor(private router:Router, private userService:UserService) { }
 
   isLoggedIn():boolean{
-    return localStorage.getItem('token') !== null;
+    return this.userId !== null;
   }
   logout(){
     this.userService.logout();
     this.router.navigateByUrl('');
   }
   ngOnInit() {
+    this.userId = sessionStorage.getItem('userId');
   }
 
 }

@@ -1,17 +1,6 @@
 <div class="locals-container">
     <h1>#{{tag}}</h1>
-    <!-- <ngx-slick-carousel class="carousel" #carousel #slickModal="slick-carousel" [config]="slideConfig">
-        <div ngxSlickItem *ngFor="let local of data" [routerLink]="['/locals',local.searchName]" class="slide">
-            <img src="{{local.imagesUrl[0]}}"/>
-        </div>
-      </ngx-slick-carousel> -->
     <div class="inline-list">
-        <div class="inline-list-item" *ngFor="let local of data" [routerLink]="['/locals',local.searchName]">
-            <img src="{{local.imagesUrl[0]}}"/>
-            <h1>{{local.name}}</h1>
-            <p> Locatie : {{local.location}}</p>
-            <p> Specific : {{local.specific}}</p>
-            <p> Taguri : {{local.tags}}</p>
-        </div>
+        <app-local-card *ngFor="let local of data" [local]="local" [routerLink]="['/locals',local.searchName]"></app-local-card>
     </div>
 </div>

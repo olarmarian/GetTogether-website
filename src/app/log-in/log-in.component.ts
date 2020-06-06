@@ -7,7 +7,7 @@ import {
   NgForm
 } from "@angular/forms"; 
 import { ErrorStateMatcher } from "@angular/material";
-import { UserServiceService } from '../user-service/user-service.service';
+import { UserService } from '../user-service/user-service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -27,16 +27,15 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.component.html',
-  styleUrls: ['./log-in.component.css']
+  styleUrls: ['./log-in.component.scss']
 })
 
 export class LogInComponent implements OnInit {
   public username:string =  "";
   public password:string =  "";
   public showMenu : boolean = true;
-  private url : string = "https://us-central1-gettogether-55ba9.cloudfunctions.net/api/"
 
-  constructor(private userService:UserServiceService,
+  constructor(private userService:UserService,
               private router:Router){}
   ngOnInit(): void {
   }
@@ -57,8 +56,8 @@ export class LogInComponent implements OnInit {
     }
   }
   public submit() {
-    this.userService.login(this.username,this.password).subscribe(jwtToken=>{
-      this.userService.setSession(jwtToken['token']);
+    this.userService.login(this.username,this.password).subscribe(response=>{
+      this.userService.setSession(response['token'],response['userId']);
       this.router.navigateByUrl('/');
     })
   }

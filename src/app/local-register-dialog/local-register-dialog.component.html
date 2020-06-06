@@ -1,0 +1,46 @@
+<div class="dialog-content">
+  <h2>Complete the fields to register your local</h2>
+  <mat-divider></mat-divider>
+  <form>
+    <p>
+        <mat-form-field>
+        <label>Name</label><input matInput type="text" [formControl]="nameFormControl" (ngModelChange)="nameChange($event)" 
+                name="name" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="nameFormControl.hasError('required')">
+          Name is <strong>required</strong>
+        </mat-error>    
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field>
+        <label>Location</label><input matInput type="text" [formControl]="locationFormControl" (ngModelChange)="locationChange($event)"
+                name="location" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="locationFormControl.hasError('required')">
+          Location is <strong>required</strong>
+        </mat-error>    
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field>
+        <label>Phone</label><input matInput type="text" [formControl]="phoneFormControl" (ngModelChange)="phoneChange($event)"
+                name="phone" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="phoneFormControl.hasError('required')">
+          Phone is <strong>required</strong>
+        </mat-error>    
+        </mat-form-field>
+    </p>
+    <section>
+      <h3>Tags</h3>
+      <mat-checkbox *ngFor="let tag of allLocalTags" [value]="tag" (change) = "addToLocalTags($event)">{{tag}}</mat-checkbox>
+    </section>
+    <section>
+      <h3>Specifics</h3>
+      <mat-checkbox *ngFor="let specific of allLocalSpecifics" [value]="specific" (change) = "addToLocalSpecifics($event)">{{specific}}</mat-checkbox>
+    </section>
+  </form>
+</div>
+  <mat-divider></mat-divider>
+  <div class="dialog-action-group-btn">
+    <button mat-button (click)="onSaveClick()">Save</button>
+    <button mat-button (click)="onCancelClick()">Cancel</button>
+  </div>

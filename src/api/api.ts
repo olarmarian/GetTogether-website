@@ -1,6 +1,7 @@
 export class Api{
     private static urlLocal:string = "http://localhost:5000/gettogether-55ba9/us-central1/api";
-    private static urlFirebase:string = "https://us-central1-gettogether-55ba9.cloudfunctions.net/api";
+    // private static urlFirebase:string = "https://us-central1-gettogether-55ba9.cloudfunctions.net/api";
+    private static urlFirebase:string= "";
     private static postMethod:string = 'POST'
     private static deleteMethod:string = 'DELETE'
     private static defaultHeaders = {
@@ -8,7 +9,22 @@ export class Api{
     }
 
     private static getUrl():string{
-        return this.urlFirebase || this.urlLocal;
+        return this.urlFirebase === "" ? this.urlLocal : this.urlFirebase;
+    }
+
+    //TODO: handle request for bad response to redirect at login page
+    static handleRequest(response){
+        if(!response.ok){
+            if([400, 401, 403].indexOf(response.status) !== -1){
+                sessionStorage.removeItem("token");
+                sessionStorage.removeItem("userId");
+                if(['/login'].indexOf(window.location.pathname) === -1){
+                    window.location.assign('/login');
+                }
+            }
+            return Promise.reject(response);
+        }
+        return response.json();
     }
 
     static login(email:string,password:string){
@@ -20,7 +36,7 @@ export class Api{
             method:this.postMethod,
             headers:this.defaultHeaders,
             body:JSON.stringify(user)
-        })
+        }).then(this.handleRequest)
     }
 
     static signUp(name:string,phone:string,email:string,password:string,confirmedPassword:string){
@@ -35,11 +51,15 @@ export class Api{
             method:this.postMethod,
             headers:this.defaultHeaders,
             body:JSON.stringify(user)
-        })
+        }).then(this.handleRequest)
     }
 
     static getUsersUrl():string{
         return this.getUrl()+"/users";
+    }
+
+    static getAccount(email:string){
+        return fetch(this.getUsersUrl()+`/${email}`);
     }
     private static getLocalsUrl():string{
         return this.getUrl()+"/locals";
@@ -51,6 +71,25 @@ export class Api{
 
     static getAllLocals(){
         return fetch(this.getLocalsUrl());
+    }
+
+    static getUserLocal(userEmail: string){
+        let token:string = sessionStorage.getItem('token');
+        return fetch(this.getLocalsUrl() + `/user-local/${userEmail}`,{
+            method:'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization':`Bearer ${token}`
+            },
+        }).then(this.handleRequest);
+    }
+
+    static getAllLocalTags(){
+        return fetch(this.getLocalsUrl() + "/tags-categories").then(this.handleRequest);
+    }
+
+    static getAllLocalSpecifics(){
+        return fetch(this.getLocalsUrl() + "/specifics-categories").then(this.handleRequest);
     }
 
     static getMetadataForLocals(){
@@ -80,7 +119,8 @@ export class Api{
         return fetch(this.getLocalsUrl()+`/${id}/reviews`)
     }
 
-    static postReviewForLocal(token:string,comment:string,localId:string,stars:number){
+    static postReviewForLocal(comment:string,localId:string,stars:number){
+        let token:string = sessionStorage.getItem('token');
         const review = {
             text:comment,
             stars
@@ -92,6 +132,29 @@ export class Api{
                 'Authorization':`Bearer ${token}`
               },
             body:JSON.stringify(review)
-        })
+        }).then(response => this.handleRequest(response))
+    }
+
+    static getReservationHistory(userId:string){
+        let token:string = sessionStorage.getItem('token');
+        return fetch(this.getUsersUrl() + `/${userId}`+"/reservations-history",{
+            method:'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization':`Bearer ${token}`
+              },
+        }).then(this.handleRequest)
+    }
+
+    static saveLocal(local: any){
+        let token:string = sessionStorage.getItem('token');
+        return fetch(this.getLocalsUrl() + '/save',{
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization':`Bearer ${token}`
+            },
+            body:JSON.stringify(local)
+        }).then(this.handleRequest)
     }
 }

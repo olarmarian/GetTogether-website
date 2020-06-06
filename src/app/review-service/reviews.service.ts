@@ -38,8 +38,7 @@ export class ReviewsService {
     let reviews = this.getReviewsForLocalById(id);
   }
   async addReview(localId:string,comment:string,stars:number){
-    let token:string = localStorage.getItem('token');
-    return await Api.postReviewForLocal(token,comment,localId,stars)
+    return await Api.postReviewForLocal(comment,localId,stars)
       .then(reviewJson =>{
         return reviewJson.json();
       })

@@ -1,4 +1,4 @@
-import { UserServiceService } from './../user-service/user-service.service';
+import { UserService } from './../user-service/user-service';
 import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 import {
@@ -10,7 +10,7 @@ import {
 
 import { ErrorStateMatcher } from "@angular/material";
 
-export class MyErrorStateMatcher implements ErrorStateMatcher {
+export class FormErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
     control: FormControl | null,
     form: FormGroupDirective | NgForm | null
@@ -28,11 +28,11 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css']
+  styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
 
-  constructor(private userService:UserServiceService,private router:Router) { }
+  constructor(private userService:UserService,private router:Router) { }
 
   public name:string =  "";
   public phone:string =  "";
@@ -41,6 +41,7 @@ export class SignUpComponent implements OnInit {
   public confirmedPassword:string =  "";
   public showMenu : boolean = true;
   public arePasswordsEqual:boolean = false;
+
   nameFormControl = new FormControl("", [
     Validators.required,
   ]);
@@ -51,7 +52,7 @@ export class SignUpComponent implements OnInit {
     Validators.required,
     Validators.email,
   ]);
-  matcher = new MyErrorStateMatcher();
+  matcher = new FormErrorStateMatcher();
 
   passwordFormControl = new FormControl("", [
     Validators.required,
@@ -70,12 +71,12 @@ export class SignUpComponent implements OnInit {
   }
   public submit() {
     this.userService.signUp(this.name,this.phone,this.email,this.password,this.confirmedPassword)
-      .then(jwtTokenJSON => {
-        return jwtTokenJSON.json();
+      .then(responseJson => {
+        return responseJson.json();
       })
-      .then(jwtToken=>{
-        if(jwtToken['token']!==undefined){
-          this.userService.setSession(jwtToken['token'])
+      .then(response=>{
+        if(response['token']!==undefined){
+          this.userService.setSession(response['token'],response['userId'])
           this.router.navigateByUrl('/');
         }
       })
