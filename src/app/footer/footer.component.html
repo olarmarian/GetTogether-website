@@ -3,8 +3,8 @@
         <div class="newsletter">
             <h2>Subscribe to our newsletter</h2>
             <div class="newsletter-input">
-                <input id="newsletter-input" type="email" placeholder="Your email address" size="50"/>
-                <i class="fas fa-long-arrow-alt-right"></i>
+                <input (keyup)="emailChange($event)" id="newsletter-input" #input type="email" placeholder="Your email address" size="50"/>
+                <i class="fas fa-long-arrow-alt-right" (click)="input.value = '';addNewsletterEmail()"></i>
             </div>
         </div>
         <div class="flex-list">

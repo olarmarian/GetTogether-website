@@ -15,10 +15,11 @@ footer{
     position: relative;
     width: fit-content;
 }
-.newsletter input{
+.newsletter-input input{
     font-size: 1rem;
     padding: 10px;
     line-height: 2rem;
+    width: 100%;
     color: #888888;
 }
 
@@ -67,6 +68,10 @@ footer{
     }
     .footer-content{
         width: 100%;
+    }
+
+    .newsletter {
+        font-size: 1rem;
     }
 }
 

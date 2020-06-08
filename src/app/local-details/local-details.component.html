@@ -37,6 +37,9 @@
                 <h2>Restaurant's tags</h2>
                 <p *ngFor="let tag of local.tags">{{tag}}</p>
             </div>
+            <div *ngIf="userEmail === local.userEmail">
+                <button mat-raised-button (click)="gotoEditLocalPage()">Edit your local</button>
+            </div>
         </div>
         <div>
             <mat-tab-group>
@@ -56,27 +59,29 @@
         </div>
     </div>
     <div class="review-container">
+        <div class="form-container">
             <form class="comment-form" *ngIf="isLoggedIn">
-                    <p>
-                        <mat-form-field>
-                            <label>Stars</label><input matInput type="number" [formControl]="starsFormControl" (ngModelChange)="starsChange($event)" name="stars" />
-                        </mat-form-field>
-                    </p>
-                    <p>
-                        <mat-form-field>
-                            <label>Comment</label><textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5"
-                            cdkAutosizeMaxRows="10" [formControl]="commentFormControl" (ngModelChange)="commentChange($event)" name="comment"></textarea>
-                            <mat-error *ngIf="commentFormControl.hasError('required')">
-                                Comment is <strong>required</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </p>
+                <h2 class="title">Review</h2>
+                <p>
+                    <mat-form-field>
+                        <label>Stars</label><input matInput type="number" [formControl]="starsFormControl" (ngModelChange)="starsChange($event)" name="stars" />
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field>
+                        <label>Comment</label><textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5"
+                        cdkAutosizeMaxRows="10" [formControl]="commentFormControl" (ngModelChange)="commentChange($event)" name="comment"></textarea>
+                        <mat-error *ngIf="commentFormControl.hasError('required')">
+                            Comment is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </p>
                 
                 <div class="button">
                     <button type="submit" (click)="submit()" mat-button>Send comment</button>
                 </div>
-                </form>
-                  
+            </form>
+        </div>     
         <app-review-list localId={{local.localId}} localName={{local.name}}></app-review-list>
     </div>
     </div>

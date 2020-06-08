@@ -6,7 +6,7 @@
             <p>
                 <mat-form-field>
                 <label>Name</label><input matInput type="text" [formControl]="nameFormControl" (ngModelChange)="nameChange($event)" 
-                        name="name" [errorStateMatcher]="matcher">
+                        name="name" [value]="localName" [errorStateMatcher]="matcher">
                 <mat-error *ngIf="nameFormControl.hasError('required')">
                   Name is <strong>required</strong>
                 </mat-error>
@@ -15,7 +15,7 @@
             <p>
                 <mat-form-field>
                 <label>Location</label><input matInput type="text" [formControl]="locationFormControl" (ngModelChange)="locationChange($event)"
-                        name="location" [errorStateMatcher]="matcher">
+                        name="location" [value]="localLocation" [errorStateMatcher]="matcher">
                 <mat-error *ngIf="locationFormControl.hasError('required')">
                   Location is <strong>required</strong>
                 </mat-error>    
@@ -23,7 +23,7 @@
             </p>
             <p>
                 <mat-form-field>
-                <label>Phone</label><input matInput type="text" [formControl]="phoneFormControl" (ngModelChange)="phoneChange($event)"
+                <label>Phone</label><input matInput [value]="localPhone" type="text" [formControl]="phoneFormControl" (ngModelChange)="phoneChange($event)"
                         name="phone" [errorStateMatcher]="matcher">
                 <mat-error *ngIf="phoneFormControl.hasError('required')">
                   Phone is <strong>required</strong>

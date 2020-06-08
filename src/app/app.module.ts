@@ -24,6 +24,8 @@ import {
   MatDialogModule,
   MatCheckboxModule,
   MatCardModule,
+  MatTableModule,
+  MatSnackBarModule
 } from "@angular/material";
 import {MatTabsModule} from '@angular/material/tabs';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
@@ -94,6 +96,8 @@ import { EditLocalComponent } from './edit-local/edit-local.component';
     SlickCarouselModule,
     MatCheckboxModule,
     MatDividerModule,
+    MatTableModule,
+    MatSnackBarModule,
     RouterModule.forRoot([
       {path : '', component:HomepageComponent},
       {path : 'login', component:LogInComponent},

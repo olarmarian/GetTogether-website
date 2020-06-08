@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {
   FormControl,
   Validators,
   FormGroupDirective,
   NgForm
 } from "@angular/forms"; 
-import { ErrorStateMatcher } from "@angular/material";
+import { ErrorStateMatcher, MatSnackBar } from "@angular/material";
 import { UserService } from '../user-service/user-service';
+
+
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -36,7 +38,10 @@ export class LogInComponent implements OnInit {
   public showMenu : boolean = true;
 
   constructor(private userService:UserService,
-              private router:Router){}
+              private router:Router,
+              private errorSnackbar: MatSnackBar,
+              private invalidEmailSnackbar: MatSnackBar,
+              private invalidPasswordSnackbar: MatSnackBar){}
   ngOnInit(): void {
   }
 
@@ -56,10 +61,37 @@ export class LogInComponent implements OnInit {
     }
   }
   public submit() {
-    this.userService.login(this.username,this.password).subscribe(response=>{
-      this.userService.setSession(response['token'],response['userId']);
-      this.router.navigateByUrl('/');
-    })
+    this.userService.login(this.username,this.password).subscribe(
+      response=>{
+        this.userService.setSession(response['token'],response['userId']);
+        this.router.navigateByUrl('/');
+      },
+      error => {
+        if(error.error.hasOwnProperty("error")){
+          this.errorSnackbar.open(error.error.error, "Close", {
+            duration:2000,
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+            panelClass: ["red-snackbar"]
+          });
+        }else{
+          setTimeout(() => {
+            this.invalidPasswordSnackbar.open("Password : " + error.error.password, "Close", {
+              duration:2000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center',
+              panelClass: ["red-snackbar"]
+            });  
+          }, 2000 + 500);
+          this.invalidEmailSnackbar.open("Email : " + error.error.email, "Close", {
+            duration:2000,
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+            panelClass: ["red-snackbar"]
+          });
+          
+        }
+      })
   }
 
   public usernameChange($event) {

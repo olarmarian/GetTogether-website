@@ -1,3 +1,5 @@
+import { MatSnackBar } from '@angular/material';
+import { Api } from './../../api/api';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,40 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  public email: string = "";
+  constructor(
+    private snackbar: MatSnackBar
+  ) { }
 
   ngOnInit() {
   }
 
+  addNewsletterEmail(){
+    Api.addNewsletterEmail(this.email)
+      .then(response => {
+        console.log(response)
+        this.snackbar.open(response.message, "Close", {
+          duration:2000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          panelClass: ["red-snackbar"]
+        })
+        this.email = "";
+        
+      })
+      .catch(err => {
+        console.log(err)
+        this.snackbar.open(err.error, "Close", {
+          duration:2000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          panelClass: ["red-snackbar"]
+        })
+        this.email = "";
+      });
+  }
+
+  public emailChange($event) {
+    this.email = $event.target.value;
+  }
 }

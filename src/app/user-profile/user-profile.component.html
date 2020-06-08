@@ -11,11 +11,11 @@
                 </div>
                 <div class="profile-info">
                     <mat-list>
-                        <mat-list-item>Name: <span> {{user.name}}</span></mat-list-item>
+                        <mat-list-item>Name: <span> {{ user.name}}</span></mat-list-item>
                         <mat-divider></mat-divider>
-                        <mat-list-item>Phone: <span> {{user.phone}}</span></mat-list-item>
+                        <mat-list-item>Phone: <span> {{ user.phone}}</span></mat-list-item>
                         <mat-divider></mat-divider>
-                        <mat-list-item>Email: <span> {{user.email}}</span></mat-list-item>
+                        <mat-list-item>Email: <span> {{ user.email}}</span></mat-list-item>
                         <mat-divider></mat-divider>
                         <mat-list-item><button id="goto-local-btn" mat-raised-button (click)="openLocalPage()">Go to your local</button></mat-list-item>
                     </mat-list>
@@ -32,12 +32,39 @@
         </div>
     
         <h3>Reservations history</h3>
-    
-        <mat-list *ngIf="reservationsHistory.length !== 0">
-            <mat-list-item *ngFor="let item of reservationsHistory" class="reservation-history-item">
-                Seats: {{item.seats}} Date: {{item.date}} Hour: {{item.hour}} Status: {{item.status}}
-            </mat-list-item>
-        </mat-list>
+
+        <mat-table *ngIf="reservationsHistory.length !== 0" [dataSource]="reservationsHistory" class="mat-elevation-z8">
+            <ng-container matColumnDef="local-name">
+                <mat-header-cell *matHeaderCellDef>Local name</mat-header-cell>
+                <mat-cell *matCellDef="let reservation"> {{reservation.localName}} </mat-cell>
+            </ng-container>
+            
+            <ng-container matColumnDef="date">
+                <mat-header-cell *matHeaderCellDef>Date </mat-header-cell>
+                <mat-cell *matCellDef="let reservation"> {{reservation.date}} </mat-cell>
+            </ng-container>
+            
+            <ng-container matColumnDef="hour">
+                <mat-header-cell *matHeaderCellDef>Hour </mat-header-cell>
+                <mat-cell *matCellDef="let reservation"> {{reservation.hour}} </mat-cell>
+            </ng-container>
+            
+            <ng-container matColumnDef="seats">
+                <mat-header-cell *matHeaderCellDef>Seats </mat-header-cell>
+                <mat-cell *matCellDef="let reservation"> {{reservation.seats}} </mat-cell>
+            </ng-container>
+            
+            <ng-container matColumnDef="status">
+                <mat-header-cell *matHeaderCellDef>Status </mat-header-cell>
+                <mat-cell *matCellDef="let reservation"> {{reservation.seats}} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <p *ngIf="reservationsHistory.length === 0">
+            No reservations.
+        </p>
         <div>
             <h3>Recommended locals</h3>
         </div>

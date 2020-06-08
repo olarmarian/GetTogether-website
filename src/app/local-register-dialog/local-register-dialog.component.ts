@@ -95,7 +95,7 @@ export class LocalRegisterDialogComponent implements OnInit {
       specifics: this.localSpecifics,
       phone: this.localPhone,
     }
-    this.localsService.saveLocal(local).catch(err=>alert(err));
+    // this.localsService.saveLocal(local).catch(err=>alert(err));
     this.onCancelClick();
   }
 

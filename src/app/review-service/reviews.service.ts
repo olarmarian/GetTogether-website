@@ -38,10 +38,8 @@ export class ReviewsService {
     let reviews = this.getReviewsForLocalById(id);
   }
   async addReview(localId:string,comment:string,stars:number){
+    console.log(comment)
     return await Api.postReviewForLocal(comment,localId,stars)
-      .then(reviewJson =>{
-        return reviewJson.json();
-      })
       .then(review =>{
         this.reviews.push(review);
         this.reviews.sort((a,b)=>{

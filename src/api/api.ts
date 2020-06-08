@@ -27,6 +27,17 @@ export class Api{
         return response.json();
     }
 
+    static addNewsletterEmail(email: string){
+        const obj = {
+            email: email
+        }
+        return fetch(this.getUrl() + "/newsletter",{
+            method:this.postMethod,
+            headers:this.defaultHeaders,
+            body:JSON.stringify(obj)
+        }).then(responseJson => responseJson.json())
+    }
+
     static login(email:string,password:string){
         const user = {
             email,
@@ -51,7 +62,7 @@ export class Api{
             method:this.postMethod,
             headers:this.defaultHeaders,
             body:JSON.stringify(user)
-        }).then(this.handleRequest)
+        });
     }
 
     static getUsersUrl():string{
@@ -59,7 +70,7 @@ export class Api{
     }
 
     static getAccount(email:string){
-        return fetch(this.getUsersUrl()+`/${email}`);
+        return fetch(this.getUsersUrl()+`/${email}`).then(this.handleRequest);
     }
     private static getLocalsUrl():string{
         return this.getUrl()+"/locals";
@@ -70,7 +81,7 @@ export class Api{
     }
 
     static getAllLocals(){
-        return fetch(this.getLocalsUrl());
+        return fetch(this.getLocalsUrl()).then(this.handleRequest);
     }
 
     static getUserLocal(userEmail: string){
@@ -101,6 +112,15 @@ export class Api{
     }
     static getLocalsByTag(tag:string){
         return fetch(this.getLocalsByTagUrl()+tag);
+    }
+
+    static getFilteredLocals(tag:string = "", specific:string = ""){
+        if(tag !== "" && specific !== ""){
+            this.getAllLocals();
+        }
+        console.log("csf" + `/tag=${tag}&specific=${specific}`)
+        return fetch(this.getLocalsUrl() + `/tag=${tag}&specific=${specific}`)
+        .then(this.handleRequest);
     }
 
     static getTheMostPopular(){

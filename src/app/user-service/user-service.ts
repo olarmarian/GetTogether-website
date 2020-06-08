@@ -15,7 +15,7 @@ export class UserService {
   }
 
   signUp(name:string,phone:string,email:string,password:string,confirmedPassword:string){
-    return Api.signUp(name,phone,email,password,confirmedPassword)
+    return Api.signUp(name,phone,email,password,confirmedPassword).then(responseJson => responseJson.json())
   }
 
   getAccount(userId:string){

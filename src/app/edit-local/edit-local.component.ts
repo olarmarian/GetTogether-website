@@ -1,3 +1,6 @@
+import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { ILocal } from 'src/utils/ILocal';
 import { Component, OnInit } from '@angular/core';
 import {
   FormControl,
@@ -5,8 +8,9 @@ import {
   FormGroupDirective,
   NgForm
 } from "@angular/forms";
-import { ErrorStateMatcher } from "@angular/material";
+import { ErrorStateMatcher, MatSnackBar } from "@angular/material";
 import { LocalsService } from '../local-service/locals.service';
+import { Route } from '@angular/compiler/src/core';
 
 
 export class FormErrorStateMatcher implements ErrorStateMatcher {
@@ -18,7 +22,7 @@ export class FormErrorStateMatcher implements ErrorStateMatcher {
     return !!(
       control &&
       control.invalid &&
-      (control.dirty || control.touched || isSubmitted)
+      (control.dirty || isSubmitted)
     );
   }
 }
@@ -29,6 +33,7 @@ export class FormErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./edit-local.component.scss']
 })
 export class EditLocalComponent implements OnInit {
+  public name: string;
   public localName:string = "";
   public localLocation:string = "";
   public localPhone:string = "";
@@ -38,11 +43,16 @@ export class EditLocalComponent implements OnInit {
 
   public allLocalTags: string [] = [];
   public allLocalSpecifics: string [] = [];
-
+  public local:ILocal = null;
  
-  constructor(private localsService:LocalsService) { }
+  constructor(
+    private localsService:LocalsService,
+    private activatedRoute: ActivatedRoute,
+    private errorSnackbar: MatSnackBar) { }
 
   ngOnInit() {
+    this.activatedRoute.params.subscribe(params => this.name = params["name"])
+    
     this.localsService.getAllLocalSpecifics().then(specifics => {
       this.allLocalSpecifics = specifics;
     });
@@ -50,6 +60,22 @@ export class EditLocalComponent implements OnInit {
     this.localsService.getAllLocalTags().then(tags => {
       this.allLocalTags = tags;
     });
+
+    this.localsService.getLocalByName(this.name)
+      .then(response => {
+        console.log(response)
+        this.local = response;
+        this.localName = this.local.name;
+        this.localPhone = this.local.phone;
+        this.localLocation = this.local.location
+      })
+      .catch(err=>{
+        this.errorSnackbar.open(err.error, "Close", {
+          duration: 2000,
+          horizontalPosition: "center",
+          verticalPosition: 'top'
+        })
+      })
   }
 
   nameFormControl = new FormControl("", [

@@ -3,7 +3,7 @@ import { UserService } from './../user-service/user-service';
 import { ILocal } from './../../utils/ILocal';
 import { LocalsService } from './../local-service/locals.service';
 import { Component, OnInit, Input } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   FormControl,
   Validators,
@@ -11,7 +11,7 @@ import {
   NgForm
 } from "@angular/forms";
 
-import { ErrorStateMatcher } from "@angular/material";
+import { ErrorStateMatcher, MatSnackBar } from "@angular/material";
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -37,14 +37,34 @@ export class LocalDetailsComponent implements OnInit {
   public local:ILocal = null;
   private localName:string;
   public stars:number = 1;
-  public comment:string =  "";
+  public comment:string = "";
   public isLoggedIn:boolean = false;
-  constructor(private route :ActivatedRoute, private localsService:LocalsService,private userService:UserService, private reviewsService:ReviewsService) {
+  public userEmail:string = "";
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router, 
+    private localsService: LocalsService,
+    private userService: UserService, 
+    private reviewsService: ReviewsService,
+    private errorSnackbar: MatSnackBar) {
   }
 
   ngOnInit() {
       this.setLocal();
       this.isLoggedIn=this.userService.isLoggedIn();
+      this.userService.getAccount(sessionStorage.getItem("userId"))
+        .then(response =>{
+          this.userEmail = response.email;
+        })
+        .catch(err=>{
+          this.errorSnackbar.open(err.error, "Close", {
+            duration:2000,
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+            panelClass: ["red-snackbar"]
+          })
+        })
   }
 
   matcher = new MyErrorStateMatcher();
@@ -68,8 +88,13 @@ export class LocalDetailsComponent implements OnInit {
       this.starsFormControl.setValue(1);
     })
     .catch((err) => {
-      alert(err)
-    });;
+      this.errorSnackbar.open(err.error, "Close", {
+        duration:2000,
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        panelClass: ["red-snackbar"]
+      })
+    });
   }
 
   public commentChange($event) {
@@ -85,5 +110,9 @@ export class LocalDetailsComponent implements OnInit {
       this.localName = params.get('name');
       })
     this.local = await this.localsService.getLocalByName(this.localName);
+  }
+
+  gotoEditLocalPage(){
+    this.router.navigateByUrl("/edit", {state:{name: this.localName}});
   }
 }

@@ -39,11 +39,41 @@
     justify-content: space-evenly;
 }
 
+.form-container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .comment-form{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 40%;
+    margin: 2em 0;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.title{
+    width: 100%;
+    height: 3em;
+    margin: 0;
+    background-color: #553e98;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #f1dde5;
+}
+
+.button{
+    border-radius: 5px;
+    background-color: #553e98;
+    color: #f1dde5;
+    margin-bottom: 2em;
 }
 
 .comment-form p{
@@ -53,6 +83,19 @@
     width: 100%;
 }
 
+.comment-form{
+
+    border: 1px solid black;
+
+}
+
+.comment-form input,
+.comment-form textarea {
+    padding: 3px;
+    margin-top: 10px;
+    border: 1px solid #888888;
+    border-radius: 5px;
+}
 
 @media screen and (max-width:1500px){
     .presentation-container

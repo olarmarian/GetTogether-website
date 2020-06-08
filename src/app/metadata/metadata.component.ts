@@ -1,3 +1,4 @@
+import { LocalsService } from './../local-service/locals.service';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -7,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class MetadataComponent implements OnInit {
 
-  constructor() {}
+  constructor(private localsService:LocalsService) {}
 
   @Input("title") public title:string;
   @Input("elements") public elements:string[];
@@ -15,7 +16,6 @@ export class MetadataComponent implements OnInit {
   public isClosed: boolean = false;
   
   ngOnInit() {
-    console.log(window.innerWidth)
     window.innerWidth < 1100 ? this.isClosed = true : this.isClosed = false
   }
 
@@ -23,4 +23,31 @@ export class MetadataComponent implements OnInit {
     this.isClosed = !this.isClosed;
   }
 
+  
+  setTag(checked:boolean, tag:string){
+    
+    if(checked){
+      this.localsService.filters.tag = tag.replace("#","");
+    }
+    else{
+      this.localsService.filters.tag = "all";
+    }
+    this.localsService.getFilteredLocals();
+  }
+
+
+  setSpecific(checked:boolean, specific:string){
+    
+    if(checked){
+      this.localsService.filters.specific = specific;
+    }
+    else{
+      this.localsService.filters.specific = "all";
+    }
+    this.localsService.getFilteredLocals();
+  }
+
+  isForTags(){
+    return this.title === "Tags"
+  }
 }

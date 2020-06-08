@@ -1,26 +1,61 @@
 import { ILocal } from './../../utils/ILocal';
 import { Injectable } from '@angular/core';
 import { Api } from '../../api/api'
+import { BehaviorSubject, Observable } from 'rxjs';
+
+interface Filters{
+  tag:string,
+  specific:string
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class LocalsService {
 
-  public locals:ILocal[] = [];
-  constructor() { }
+  private initialLocals:ILocal[] = [];
+  public locals = new BehaviorSubject<ILocal[]>(this.initialLocals);
 
-  async getLocals(){
+  
+  filters:Filters = {
+    tag:"all",
+    specific:"all"
+  }
+  constructor() {}
+
+  async loadLocals(){
     await Api.getAllLocals()
-      .then(response =>{
-        return response.json();
-      })
       .then(data =>{
-        this.locals=data;
+        this.locals.next(data);
       })
       .catch(err =>{
         alert(err);
       })
-    return this.locals;
+  }
+
+  getLocals(): Observable<ILocal[]>{
+    this.loadLocals();
+    return this.locals.asObservable();
+  }
+
+  async loadFilteredLocals(){
+    console.log(this.filters)
+
+    await Api.getFilteredLocals(this.filters.tag, this.filters.specific)
+    .then(data =>{
+      this.locals.next(data);
+    })
+    .catch(err =>{
+      alert(err);
+    })
+
+  }
+  
+  getFilteredLocals() : Observable<ILocal[]>{
+    this.loadFilteredLocals();
+    
+    return this.locals.asObservable();
   }
 
   async getLocalByName(name:string){
@@ -72,10 +107,10 @@ export class LocalsService {
   }
   
 
-  async saveLocal(local: any){
-    await Api.saveLocal(local)
-      .then(response => {
-        this.locals.push(response)
-      })
-  }
+  // async saveLocal(local: any){
+  //   await Api.saveLocal(local)
+  //     .then(response => {
+  //       this.locals.push(response)
+  //     })
+  // }
 }

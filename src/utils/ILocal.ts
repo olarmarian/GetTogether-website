@@ -1,6 +1,6 @@
 export interface ILocal{
     localId:string,
-    userId:string,
+    userEmail:string,
     name:string,
     searchName:string,
     location:string,
