@@ -7,7 +7,7 @@ import {
   FormGroupDirective,
   NgForm
 } from "@angular/forms";
-import { ErrorStateMatcher } from "@angular/material";
+import { ErrorStateMatcher, MatSnackBar } from "@angular/material";
 
 
 export class FormErrorStateMatcher implements ErrorStateMatcher {
@@ -36,14 +36,15 @@ export class LocalRegisterDialogComponent implements OnInit {
   public localPhone:string = "";
   public localSpecifics:string[] = [];
   public localTags:string[] = [];
-
+  public selectedImages: any[] = [];
   public allLocalTags: string [] = [];
   public allLocalSpecifics: string [] = [];
 
   constructor(
     public dialogRef: MatDialogRef<LocalRegisterDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private localsService: LocalsService
+    private localsService: LocalsService,
+    private errorSnackbar: MatSnackBar
     ) {}    
 
   ngOnInit() {
@@ -67,6 +68,24 @@ export class LocalRegisterDialogComponent implements OnInit {
   ]);
   matcher = new FormErrorStateMatcher();
 
+  selectImage($event){
+    if($event.target.files){
+      var reader = new FileReader();
+      reader.readAsDataURL($event.target.files[0]);
+      reader.onload = (event : any) => {
+        this.selectedImages.push({
+          id:null,
+          imageUrl:event.target.result,
+          imageFile:$event.target.files[0],
+          removed:false})
+      }
+    }
+  }
+
+  removeImage(url){
+    this.selectedImages = this.selectedImages.filter(image => image.imageUrl !== url);
+  }
+
   phoneChange($event){
     this.localPhone = $event;
   }
@@ -87,15 +106,53 @@ export class LocalRegisterDialogComponent implements OnInit {
     this.localTags.push($event.source.value);
   }
 
-  onSaveClick():void {
-    const local = {
+  async onSaveClick() {
+    let local = {
       name: this.localName,
       location: this.localLocation,
       tags: this.localTags,
       specifics: this.localSpecifics,
       phone: this.localPhone,
     }
-    // this.localsService.saveLocal(local).catch(err=>alert(err));
+    
+    let savedLocal;
+    await this.localsService
+      .saveLocal(local)
+      .then(response => {
+        savedLocal = response;
+      })
+      .catch(err=>{
+        this.errorSnackbar.open(err.error, "Close", {
+          duration: 2000,
+          horizontalPosition: "center",
+          verticalPosition: "top"
+        })
+      });
+
+
+    this.selectedImages.forEach(image => {
+      if(image.id === null){
+        this.localsService.updateLocalImage(savedLocal.localId, image.imageFile)
+          .catch(err => {
+            this.errorSnackbar.open(err.error, "Close", {
+              duration: 2000,
+              horizontalPosition: "center",
+              verticalPosition: "top"
+            })
+          })
+      }else{
+        if(image.removed){
+          this.localsService.removeLocalImage(image.id)
+            .catch(err =>{
+              this.errorSnackbar.open(err.error, "Close", {
+                duration: 2000,
+                horizontalPosition: "center",
+                verticalPosition: "top"
+              })
+            })
+        }
+      }
+    })
     this.onCancelClick();
   }
 

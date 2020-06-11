@@ -35,52 +35,9 @@ export class LocalsPageComponent implements OnInit {
       .getFilteredLocals()
       .subscribe(res => {
         this.locals = res;
+        console.log(this.locals)
       }, err =>{
         console.error(err)
       });
-
-    // this.localsService.getLocals().then(result => {this.locals = result., this.filteredList = this.locals});
   }
-
-  // private containsTag(local:ILocal,tag:string):boolean{
-  //   return this.filters.tag===null ? true: local.tags.filter(localTag=>{
-  //     return localTag===("#"+tag)
-  //   }).length>0
-  // }
-
-  // private containsSpecific(local:ILocal,specific:string):boolean{
-  //   return this.filters.specific===null ? true: local.specific.filter(localSpecific=>{
-  //     return localSpecific===specific
-  //   }).length>0
-
-    
-  // }
-
-
-  // private isStarsFilterHigherOrEqualToAverage(local:ILocal,stars:number):boolean{
-  //   let averageStars = 0;
-  //   this.reviewsService.getReviewsForLocalById(local.localId).then(result => {
-  //     console.log(result);
-  //   });
-  //   return this.filters.stars===null ? true : averageStars >= stars;
-  // }
-
-  // applyFilters(){
-  //   this.filteredList = this.locals.filter(local=>{
-  //     return this.containsTag(local,this.filters.tag) || this.containsSpecific(local,this.filters.specific) || this.isStarsFilterHigherOrEqualToAverage(local,this.filters.stars)
-  //   })
-  // }
-
-  // setTag(tag:string){
-  //   this.filters.tag = tag;
-  // }
-
-  // setStart(stars:number){
-  //   this.filters.stars = stars;
-  // }
-
-  // setSpecific(specific:string){
-  //   this.filters.specific = specific;
-  // }
-
 }

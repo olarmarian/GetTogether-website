@@ -33,9 +33,15 @@
         </section>
         <section>
             <h3>Local's image</h3>
-            <div *ngIf="imagesUrl.length > 0" class="images">
-                <div *ngFor="let url of imagesUrl" class="image-div">
-                    <img [src]="url" class="local-image"/>
+            <div *ngIf="imagesUrlObjects.length > 0" class="images">
+                <div *ngFor="let obj of imagesUrlObjects" class="image-div">
+                    <div>
+                      <div>
+                        <span *ngIf="obj.removed" (click)="addImage(obj.imageUrl)">Undo</span>
+                        <span (click)="removeImage(obj.imageUrl)">X</span>
+                      </div>
+                    </div>
+                    <img [src]="obj.imageUrl" [ngClass]="obj.removed?'removed-local-image':''" class="local-image"/>
                 </div>
             </div>
             <input type="file" (change)="selectImage($event)"/>
@@ -43,13 +49,21 @@
         <section>
           <h3>Tags</h3>
           <div class="checkbox-list">
-              <mat-checkbox *ngFor="let tag of allLocalTags" [value]="tag" (change) = "addToLocalTags($event)">{{tag}}</mat-checkbox>
+              <mat-checkbox *ngFor="let tag of allLocalTags"
+                #checkbox
+                [checked]="localTags.includes(tag)" 
+                [value]="tag" 
+                (change) = "addToLocalTags(checkbox.checked, $event)">{{tag}}</mat-checkbox>
           </div>
         </section>
         <section>
           <h3>Specifics</h3>
           <div class="checkbox-list">
-              <mat-checkbox *ngFor="let specific of allLocalSpecifics" [value]="specific" (change) = "addToLocalSpecifics($event)">{{specific}}</mat-checkbox>
+              <mat-checkbox *ngFor="let specific of allLocalSpecifics" 
+                #checkbox
+                [checked]="localSpecifics.includes(specific)" 
+                [value]="specific" 
+                (change) = "addToLocalSpecifics(checkbox.checked, $event)">{{specific}}</mat-checkbox>
           </div>
         </section>
         <mat-divider></mat-divider>

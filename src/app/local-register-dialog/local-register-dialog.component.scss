@@ -34,3 +34,18 @@
         opacity: .7;
     }
 }
+
+
+.images{
+    display: grid;
+    width: 100%;
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+    flex-wrap: wrap;
+}
+
+.local-image{
+    height: 200px;
+    width: 300px;
+    border-radius: 0 0 10px  10px;
+}

@@ -1,5 +1,6 @@
 <div class="local-card">
-    <img src="{{local.imagesUrl[0]}}"/>
+    <img *ngIf="local.imagesUrl.length > 0" src="{{local.imagesUrl[0].imageUrl}}"/>
+    <img *ngIf="local.imagesUrl.length === 0" src="https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png" alt="{{local.name}}"/>
     <h1>{{local.name}}</h1>
     <p> Location : {{local.location}}</p>
     <p> Specifics : {{local.specific}}</p>

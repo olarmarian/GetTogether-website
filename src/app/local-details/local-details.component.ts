@@ -35,7 +35,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class LocalDetailsComponent implements OnInit {
 
   public local:ILocal = null;
-  private localName:string;
+  public localName:string;
   public stars:number = 1;
   public comment:string = "";
   public isLoggedIn:boolean = false;
@@ -50,14 +50,15 @@ export class LocalDetailsComponent implements OnInit {
     private errorSnackbar: MatSnackBar) {
   }
 
-  ngOnInit() {
-      this.setLocal();
+  async ngOnInit() {
+      await this.setLocal();
       this.isLoggedIn=this.userService.isLoggedIn();
-      this.userService.getAccount(sessionStorage.getItem("userId"))
+      await this.userService.getAccount(sessionStorage.getItem("userId"))
         .then(response =>{
           this.userEmail = response.email;
         })
         .catch(err=>{
+          console.log(err)
           this.errorSnackbar.open(err.error, "Close", {
             duration:2000,
             verticalPosition: 'top',
@@ -113,6 +114,6 @@ export class LocalDetailsComponent implements OnInit {
   }
 
   gotoEditLocalPage(){
-    this.router.navigateByUrl("/edit", {state:{name: this.localName}});
+    this.router.navigate(["edit"], {relativeTo: this.route});
   }
 }

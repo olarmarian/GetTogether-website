@@ -3,9 +3,10 @@ export interface ILocal{
     userEmail:string,
     name:string,
     searchName:string,
+    phone:string,
     location:string,
     specific:string[],
-    phone:string,
-    tags:string[]
+    tags:string[],
+    imagesUrl:any[]
   }
   

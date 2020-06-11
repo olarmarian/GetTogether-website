@@ -25,8 +25,7 @@ export class UserProfileComponent implements OnInit {
   constructor(
     private userService:UserService, 
     private router: Router, 
-    private checkDialog: MatDialog, 
-    private localRegisterDialog: MatDialog) { }
+    private checkDialog: MatDialog) { }
 
   async ngOnInit() {
     const userId = sessionStorage.getItem("userId");

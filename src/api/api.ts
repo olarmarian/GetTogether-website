@@ -177,4 +177,44 @@ export class Api{
             body:JSON.stringify(local)
         }).then(this.handleRequest)
     }
+
+    
+    static updateLocal(local: any){
+        let token:string = sessionStorage.getItem('token');
+        return fetch(this.getLocalsUrl() + `/${local.localId}/edit`,{
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization':`Bearer ${token}`
+            },
+            body:JSON.stringify(local)
+        }).then(this.handleRequest)
+    }
+
+    static updateLocalImage(localId:string, image: any){
+        let token:string = sessionStorage.getItem('token');
+
+        const formData = new FormData();
+        formData.append("image", image);
+        return fetch(this.getLocalsUrl() + `/${localId}/upload`,{
+            method:'POST',
+            headers: {
+                'Authorization':`Bearer ${token}`
+            },
+            body:formData
+        }).then(this.handleRequest)
+    }
+
+    static removeLocalImage(imageId: any){
+        let token:string = sessionStorage.getItem('token');
+
+        return fetch(this.getLocalsUrl() + `/image`,{
+            method: this.deleteMethod,
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization':`Bearer ${token}`
+            },
+            body:JSON.stringify({imageId: imageId})
+        }).then(this.handleRequest)
+    }
 }

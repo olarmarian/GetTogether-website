@@ -107,10 +107,19 @@ export class LocalsService {
   }
   
 
-  // async saveLocal(local: any){
-  //   await Api.saveLocal(local)
-  //     .then(response => {
-  //       this.locals.push(response)
-  //     })
-  // }
+  async saveLocal(local: any){
+    return await Api.saveLocal(local)
+  }
+
+  async updateLocal(local: ILocal){
+    await Api.updateLocal(local);
+  }
+
+  async updateLocalImage(localId:string, image){
+    await Api.updateLocalImage(localId, image)
+  }
+
+  async removeLocalImage(imageId: string){
+    await Api.removeLocalImage(imageId)
+  }
 }

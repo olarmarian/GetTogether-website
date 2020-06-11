@@ -20,6 +20,21 @@
         </mat-error>    
         </mat-form-field>
     </p>
+    <section>
+        <h3>Local's image</h3>
+        <div *ngIf="selectedImages.length > 0" class="images">
+            <div *ngFor="let obj of selectedImages" class="image-div">
+                <div>
+                  <div>
+                    <span (click)="removeImage(obj.imageUrl)">X</span>
+                  </div>
+                </div>
+                <img [src]="obj.imageUrl" class="local-image"/>
+            </div>
+        </div>
+        <input type="file" (change)="selectImage($event)"/>
+      
+    </section>
     <p>
         <mat-form-field>
         <label>Phone</label><input matInput type="text" [formControl]="phoneFormControl" (ngModelChange)="phoneChange($event)"
