@@ -18,23 +18,22 @@
 }
 
 .profile-info *{
-    color: #000000 !important;
+    color: #000000;
     font-family: "Times New Roman", Times, serif;
     width: 20em;
-}
-.active-reservation{
-    display: flex;
-    align-items: center;
-}
-
-.active-reservation * {
-    margin: 0 .6em;
 }
 
 .mat-divider {
     border-top-color: black !important;
 }
 
+#edit-btn{
+    background-color: #553e98;
+}
+
+#edit-btn{
+    color: white !important;
+}
 .container-content{
     width: 80%;
     display: flex;
@@ -50,6 +49,25 @@
     border-radius: 40px;
 }
 
+
+.reservations-container, .active-reservation-container{
+    margin-top: 1em;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.reservations-container table,
+.active-reservation-container table {
+    width: 100%;
+    margin-top: 2em;
+}
+
+.reservations-container .mat-paginator,
+.active-reservation-container .mat-paginator{
+    width: 100%;
+}
+
 #goto-local-btn{
     background: none;
     border: none;
@@ -59,4 +77,35 @@
 
 #goto-local-btn:hover{
     text-decoration: underline;
+}
+
+.recommended-container{
+    margin-top: 2em;
+    width: 80%;
+}
+
+.recommended-container h2{
+    text-align: center;
+}
+
+.recommended-locals-container{
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(17em, 1fr));
+    grid-gap: 2em;
+    margin-bottom: 2em;
+}
+
+@media (max-width: 1000px){
+    .profile{
+        flex-direction: column;
+    }
+
+    .container-content,
+    .container-content .active-reservation-container,
+    .container-content .recommended-locals-container,
+    .container-content .reservations-container
+    {
+        width: 98%;
+    }
 }

@@ -41,26 +41,109 @@
                 <button mat-raised-button (click)="gotoEditLocalPage()">Edit your local</button>
             </div>
         </div>
-        <div>
-            <mat-tab-group>
-                <mat-tab label="Persons">
-                    <h1>Some more tab content</h1>
-                    <p>...</p>
-                </mat-tab>
-                <mat-tab label="Date">
-                    <h1>Some tab content</h1>
-                    <p>...</p>
-                </mat-tab>
-                <mat-tab label="Hour">
-                    <h1>Some more tab content</h1>
-                    <p>...</p>
-                </mat-tab>
-            </mat-tab-group>
+        <div class="reservation-form">
+            <mat-vertical-stepper [linear]="isLinear" #stepper>
+                <mat-step [stepControl]="dateFormGroup" >
+                  <form [formGroup]="dateFormGroup">
+                    <ng-template matStepLabel>Fill out reservation date</ng-template>
+                    <mat-form-field>
+                        <mat-label>Choose a date</mat-label>
+                        <input matInput formControlName="dateCtrl" [matDatepicker]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                    <div>
+                      <button mat-button matStepperNext>Next</button>
+                    </div>
+                  </form>
+                </mat-step>
+                <mat-step [stepControl]="hourFormGroup">
+                  <form [formGroup]="hourFormGroup">
+                    <ng-template matStepLabel>Fill out reservation hour</ng-template>
+                    <mat-form-field>
+                      <mat-label>Choose an hour</mat-label>
+                      <input matInput formControlName="hourCtrl" atp-time-picker
+                             required>
+                    </mat-form-field>
+                    <div>
+                      <button mat-button matStepperPrevious>Back</button>
+                      <button mat-button matStepperNext>Next</button>
+                    </div>
+                  </form>
+                </mat-step>
+                <mat-step [stepControl]="seatsFormGroup">
+                    <form [formGroup]="seatsFormGroup">
+                      <ng-template matStepLabel>Fill out reservation seats</ng-template>
+                      <mat-form-field>
+                        <mat-label>Choose a number</mat-label>
+                        <mat-select formControlName="seatsCtrl">
+                            <mat-option *ngFor="let seats of [2, 4, 8, 12]" [value]="seats">
+                              {{seats}}
+                            </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                      <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button matStepperNext>Next</button>
+                      </div>
+                    </form>
+                  </mat-step>
+                <mat-step>
+                  <ng-template matStepLabel>Done</ng-template>
+                  <p>You are now done.</p>
+                  <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button (click)="saveReservation()">Save</button>
+                  </div>
+                </mat-step>
+              </mat-vertical-stepper>
         </div>
+    </div>
+    <div class="reservations-container" *ngIf="userEmail === local.userEmail">
+        <h2>Reservations</h2>
+        <table mat-table [dataSource]="localsReservationsPage" class="mat-elevation-z8">
+            <ng-container matColumnDef="userName">
+                <mat-header-cell *matHeaderCellDef>User name</mat-header-cell>
+                <mat-cell *matCellDef="let reservation"> {{reservation.userName}} </mat-cell>
+            </ng-container>
+            
+            <ng-container matColumnDef="date">
+                <mat-header-cell *matHeaderCellDef>Date </mat-header-cell>
+                <mat-cell *matCellDef="let reservation"> {{reservation.date}} </mat-cell>
+            </ng-container>
+            
+            <ng-container matColumnDef="hour">
+                <mat-header-cell *matHeaderCellDef>Hour </mat-header-cell>
+                <mat-cell *matCellDef="let reservation"> {{reservation.hour}} </mat-cell>
+            </ng-container>
+            
+            <ng-container matColumnDef="seats">
+                <mat-header-cell *matHeaderCellDef>Seats </mat-header-cell>
+                <mat-cell *matCellDef="let reservation"> {{reservation.seats}} </mat-cell>
+            </ng-container>
+            
+            <ng-container matColumnDef="status">
+                <mat-header-cell *matHeaderCellDef>Status </mat-header-cell>
+                <mat-cell *matCellDef="let reservation"> {{reservation.status}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                <mat-cell *matCellDef="let reservation"> 
+                    <a (click)="openDialog('Change status',reservation)">Edit status</a>
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </table>
+        <mat-paginator [length]="totalReservations"
+            [pageSize]="limitPage"
+            (page)="onPageChanged($event)"
+            >
+        </mat-paginator>
     </div>
     <div class="review-container">
         <div class="form-container">
-            <form class="comment-form" *ngIf="isLoggedIn">
+            <form class="comment-form" *ngIf="isLoggedIn && userEmail !== local.userEmail">
                 <h2 class="title">Review</h2>
                 <p>
                     <mat-form-field>

@@ -1,4 +1,6 @@
 export class Api{
+
+    private static urlReservationMicroservice = "http://192.168.0.104:8080/reservations";
     private static urlLocal:string = "http://localhost:5000/gettogether-55ba9/us-central1/api";
     // private static urlFirebase:string = "https://us-central1-gettogether-55ba9.cloudfunctions.net/api";
     private static urlFirebase:string= "";
@@ -65,8 +67,19 @@ export class Api{
         });
     }
 
+    static updateUserProfile(user:any){
+        return fetch(this.getUsersUrl() + `/${user.id}/edit`, {
+            method: "PUT",
+            headers: this.defaultHeaders,
+            body: JSON.stringify(user)
+        }).then(this.handleRequest)
+    }
     static getUsersUrl():string{
         return this.getUrl()+"/users";
+    }
+
+    static getReservationsUrl(): string {
+        return this.urlReservationMicroservice;
     }
 
     static getAccount(email:string){
@@ -118,7 +131,6 @@ export class Api{
         if(tag !== "" && specific !== ""){
             this.getAllLocals();
         }
-        console.log("csf" + `/tag=${tag}&specific=${specific}`)
         return fetch(this.getLocalsUrl() + `/tag=${tag}&specific=${specific}`)
         .then(this.handleRequest);
     }
@@ -156,14 +168,11 @@ export class Api{
     }
 
     static getReservationHistory(userId:string){
-        let token:string = sessionStorage.getItem('token');
-        return fetch(this.getUsersUrl() + `/${userId}`+"/reservations-history",{
-            method:'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization':`Bearer ${token}`
-              },
-        }).then(this.handleRequest)
+        return fetch(this.getReservationsUrl() + `/user/${userId}/not-active`).then(response => {return response.json()})
+    }
+
+    static getActiveReservations(userId:string){
+        return fetch(this.getReservationsUrl() + `/user/${userId}/active`).then(response => {return response.json()})
     }
 
     static saveLocal(local: any){
@@ -216,5 +225,35 @@ export class Api{
             },
             body:JSON.stringify({imageId: imageId})
         }).then(this.handleRequest)
+    }
+
+    static saveReservation(reservation: any){
+        return fetch(this.getReservationsUrl(),{
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(reservation)
+        }).then(response => {return response.json()})
+    }
+
+    static getLocalsReservations(localId: string){
+        return fetch(this.getReservationsUrl() + `/local/${localId}`).then(response => {return response.json()})
+    }
+
+    static updateStatusReservation(reservation: any){
+        return fetch(this.getReservationsUrl() + `/${reservation.reservationId}/status`, {
+            method: "PUT",
+            headers:this.defaultHeaders,
+            body:reservation.status
+        })
+    }
+
+    static updateReservation(reservation: any){
+        return fetch(this.getReservationsUrl() + `/${reservation.reservationId}`, {
+            method: "PUT",
+            headers:this.defaultHeaders,
+            body:JSON.stringify(reservation)
+        })
     }
 }

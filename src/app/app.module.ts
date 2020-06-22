@@ -1,3 +1,4 @@
+import { ReservationsService } from './reservations-service/reservations.service';
 import { LocalsService } from './local-service/locals.service';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
@@ -25,8 +26,13 @@ import {
   MatCheckboxModule,
   MatCardModule,
   MatTableModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatStepperModule,
+  MatDatepickerModule,
+  MatSelectModule,
+  MatPaginatorModule
 } from "@angular/material";
+import {MatNativeDateModule} from '@angular/material/core';
 import {MatTabsModule} from '@angular/material/tabs';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
@@ -47,6 +53,9 @@ import { InfoDialogComponent } from './info-dialog/info-dialog.component';
 import { LocalRegisterDialogComponent } from './local-register-dialog/local-register-dialog.component';
 import { EditLocalComponent } from './edit-local/edit-local.component';
 
+import { AmazingTimePickerModule } from 'amazing-time-picker';
+import { TableActionDialogComponent } from './table-action-dialog/table-action-dialog.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
@@ -69,9 +78,13 @@ import { EditLocalComponent } from './edit-local/edit-local.component';
     InfoDialogComponent,
     LocalRegisterDialogComponent,
     EditLocalComponent,
+    TableActionDialogComponent,
+    EditUserComponent,
+  
   ],
   entryComponents: [
     InfoDialogComponent, 
+    TableActionDialogComponent,
     LocalRegisterDialogComponent
   ],
   imports: [
@@ -97,7 +110,13 @@ import { EditLocalComponent } from './edit-local/edit-local.component';
     MatCheckboxModule,
     MatDividerModule,
     MatTableModule,
+    MatDatepickerModule,
     MatSnackBarModule,
+    MatStepperModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    AmazingTimePickerModule,
+    MatPaginatorModule,
     RouterModule.forRoot([
       {path : '', component:HomepageComponent},
       {path : 'login', component:LogInComponent},
@@ -106,10 +125,11 @@ import { EditLocalComponent } from './edit-local/edit-local.component';
       {path : 'locals/:name/edit', component: EditLocalComponent},
       {path : 'locals', component:LocalsPageComponent},
       {path : 'account/:userId', component: UserProfileComponent},
+      {path : 'account/:userId/edit', component: EditUserComponent}
     ]),
     BrowserAnimationsModule
   ],
-  providers: [LocalsService],
+  providers: [LocalsService, ReservationsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

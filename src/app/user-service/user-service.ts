@@ -26,8 +26,8 @@ export class UserService {
     return Api.getUserLocal(userEmail);
   }
 
-  getReservationHistory(userId:string){
-    return Api.getReservationHistory(userId);
+  async updateProfile(user: any){
+    return await Api.updateUserProfile(user);
   }
 
   setSession(token:string,userId:string){

@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ILocal } from 'src/utils/ILocal';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -44,6 +44,7 @@ export class EditLocalComponent implements OnInit {
   public local:ILocal = null;
  
   constructor(
+    private router: Router,
     private localsService:LocalsService,
     private activatedRoute: ActivatedRoute,
     private errorSnackbar: MatSnackBar) { }
@@ -175,6 +176,9 @@ export class EditLocalComponent implements OnInit {
     }
 
     this.localsService.updateLocal(newLocal)
+      .then(() =>{
+        this.router.navigateByUrl(`/locals/${newLocal.searchName}`)
+      })
       .catch(err => {
         this.errorSnackbar.open(err.error, "Close", {
           duration: 2000,

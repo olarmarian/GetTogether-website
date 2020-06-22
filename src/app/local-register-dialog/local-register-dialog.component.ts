@@ -8,6 +8,7 @@ import {
   NgForm
 } from "@angular/forms";
 import { ErrorStateMatcher, MatSnackBar } from "@angular/material";
+import { Router } from '@angular/router';
 
 
 export class FormErrorStateMatcher implements ErrorStateMatcher {
@@ -44,6 +45,7 @@ export class LocalRegisterDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<LocalRegisterDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private localsService: LocalsService,
+    private router: Router,
     private errorSnackbar: MatSnackBar
     ) {}    
 
@@ -154,6 +156,7 @@ export class LocalRegisterDialogComponent implements OnInit {
       }
     })
     this.onCancelClick();
+    this.router.navigateByUrl(`/locals/${savedLocal.searchName}`)
   }
 
   onCancelClick():void{

@@ -1,0 +1,46 @@
+<h1 mat-dialog-title>Reservation action :: <strong>{{action}}</strong></h1>
+<div mat-dialog-content>
+  <mat-form-field *ngIf="action !== 'Change reservation'">
+    <mat-select [(ngModel)]="local_data.status">
+      <mat-option *ngFor="let status of ['ACTIVE', 'DECLINED']" [value]="status">
+        {{status}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field *ngIf="action === 'Change reservation'">
+    <mat-select [(ngModel)]="local_data.status">
+      <mat-option *ngFor="let status of ['ACTIVE', 'CANCELED']" [value]="status">
+        {{status}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <form [formGroup]="dateFormGroup" *ngIf="action === 'Change reservation'">
+    <mat-form-field>
+        <mat-label>Choose a date</mat-label>
+        <input matInput formControlName="dateCtrl" [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+  </form>
+  <form [formGroup]="hourFormGroup" *ngIf="action === 'Change reservation'">
+    <mat-form-field>
+      <mat-label>Choose an hour</mat-label>
+      <input matInput formControlName="hourCtrl" atp-time-picker
+             required>
+    </mat-form-field>
+  </form>
+  <form [formGroup]="seatsFormGroup" *ngIf="action === 'Change reservation'">
+    <mat-form-field>
+      <mat-label>Choose a number</mat-label>
+      <mat-select formControlName="seatsCtrl">
+          <mat-option *ngFor="let seats of [2, 4, 8, 12]" [value]="seats">
+            {{seats}}
+          </mat-option>
+        </mat-select>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="doAction()" mat-flat-button color="primary">{{action}}</button>
+  <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>
+</div>

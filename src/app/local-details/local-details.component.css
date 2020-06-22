@@ -97,6 +97,26 @@
     border-radius: 5px;
 }
 
+
+.reservation-form{
+    margin-top: 2em;
+    width: 40%;
+    
+}
+
+.reservations-container{
+    margin-top: 1em;
+}
+.reservations-container table {
+    width: 100%;
+    margin-top: 2em;
+}
+.reservation-form .mat-stepper-vertical{
+    background-color: #553e98;
+    color: white;
+    border-radius: 1em;
+}
+
 @media screen and (max-width:1500px){
     .presentation-container
     {

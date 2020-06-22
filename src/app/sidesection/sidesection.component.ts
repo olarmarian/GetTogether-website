@@ -25,7 +25,7 @@ export class SidesectionComponent implements OnInit {
             this._data = data;
           })
           .catch(err =>{
-            alert(err)
+            // alert(err)
           })
       }
       else if(this._title === "THE BIGGEST RATE"){
@@ -37,7 +37,7 @@ export class SidesectionComponent implements OnInit {
             this._data = data;
           })
           .catch(err =>{
-            alert(err)
+            // alert(err)
           })
       }else if(this._title === "THE NEWEST"){
         await Api.getTheNewest()
@@ -48,7 +48,7 @@ export class SidesectionComponent implements OnInit {
             this._data = data;
           })
           .catch(err =>{
-            alert(err)
+            // alert(err)
           })
       }
   }

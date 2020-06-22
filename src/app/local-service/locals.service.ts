@@ -30,24 +30,23 @@ export class LocalsService {
         this.locals.next(data);
       })
       .catch(err =>{
-        alert(err);
+        // alert(err);
       })
   }
 
-  getLocals(): Observable<ILocal[]>{
-    this.loadLocals();
+  async getLocals(){
+    await this.loadLocals();
     return this.locals.asObservable();
   }
 
   async loadFilteredLocals(){
-    console.log(this.filters)
 
     await Api.getFilteredLocals(this.filters.tag, this.filters.specific)
     .then(data =>{
       this.locals.next(data);
     })
     .catch(err =>{
-      alert(err);
+      // alert(err);
     })
 
   }
@@ -68,7 +67,7 @@ export class LocalsService {
         local=data[0];
       })
       .catch(err =>{
-        alert(err);
+        // alert(err);
       })
       return local;
   }
@@ -83,7 +82,7 @@ export class LocalsService {
         metadata = data;
       })
       .catch(err => {
-        alert(err)
+        // alert(err)
       })
     return metadata;
   }

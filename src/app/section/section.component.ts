@@ -52,7 +52,7 @@ export class SectionComponent implements OnInit {
             this._data = data;
           })
           .catch(err =>{
-            alert(err)
+            // alert(err)
           })
   }
 
