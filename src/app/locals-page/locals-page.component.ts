@@ -35,7 +35,6 @@ export class LocalsPageComponent implements OnInit {
       .getFilteredLocals()
       .subscribe(res => {
         this.locals = res;
-        console.log(this.locals)
       }, err =>{
         console.error(err)
       });

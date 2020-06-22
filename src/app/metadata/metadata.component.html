@@ -4,7 +4,7 @@
         <span [class.span-open]="!isClosed" [class.span-closed]="isClosed"></span>
     </div>
     <section class="list-metadata" [class.isClosed]="isClosed" [class.isOpen]="!isClosed">
-        <mat-checkbox #checkbox [checked]="selected === item" 
+        <mat-checkbox #checkbox
             class="list-metadata-item" 
             *ngFor="let item of elements.split(',')" 
             (change)="isForTags() ? setTag(checkbox.checked, item) : setSpecific(checkbox.checked, item)"

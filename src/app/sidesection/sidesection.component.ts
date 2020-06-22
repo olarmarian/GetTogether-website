@@ -8,7 +8,7 @@ import {Api} from '../../api/api'
 })
 export class SidesectionComponent implements OnInit {
 
-  private _title:string;
+  public _title:string;
   private _data:ILocal[] = [];
   @Input("title") titleInput:string
 

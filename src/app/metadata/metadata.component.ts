@@ -11,7 +11,7 @@ export class MetadataComponent implements OnInit {
   constructor(private localsService:LocalsService) {}
 
   @Input("title") public title:string;
-  @Input("elements") public elements:string[];
+  @Input("elements") public elements:string;
 
   public isClosed: boolean = false;
   
