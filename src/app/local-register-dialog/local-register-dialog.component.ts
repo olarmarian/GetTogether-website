@@ -101,11 +101,20 @@ export class LocalRegisterDialogComponent implements OnInit {
   }
 
   addToLocalSpecifics($event){
-    this.localSpecifics.push($event.source.value);
+    if(this.localSpecifics.includes($event.source.value)){
+      this.localSpecifics = this.localSpecifics.filter(specific => specific !== $event.source.value);
+    }
+    else{
+      this.localSpecifics.push($event.source.value);
+    }
   }
 
   addToLocalTags($event){
-    this.localTags.push($event.source.value);
+    if(this.localTags.includes($event.source.value)){
+      this.localTags = this.localTags.filter(tag => tag !== $event.source.value)
+    }else{
+      this.localTags.push($event.source.value);
+    }
   }
 
   async onSaveClick() {
