@@ -20,7 +20,6 @@ export class FooterComponent implements OnInit {
   addNewsletterEmail(){
     Api.addNewsletterEmail(this.email)
       .then(response => {
-        console.log(response)
         this.snackbar.open(response.message, "Close", {
           duration:2000,
           verticalPosition: 'top',
@@ -31,7 +30,6 @@ export class FooterComponent implements OnInit {
         
       })
       .catch(err => {
-        console.log(err)
         this.snackbar.open(err.error, "Close", {
           duration:2000,
           verticalPosition: 'top',

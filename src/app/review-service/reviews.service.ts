@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IReview } from 'src/utils/IReview';
@@ -8,7 +9,8 @@ import { Api } from 'src/api/api';
 })
 export class ReviewsService {
 
-  reviews:IReview[] = [];
+  reviews = new BehaviorSubject<IReview[]>([]);
+
   constructor(private http:HttpClient) { }
 
   async loadReviewForLocalById(id:string){
@@ -27,8 +29,8 @@ export class ReviewsService {
   }
 
   async getReviewsForLocalById(id:string){
-    this.reviews = [];
-    this.reviews =await this.loadReviewForLocalById(id);
+    let reviewsFetched = await this.loadReviewForLocalById(id);;
+    this.reviews.next(reviewsFetched);
     return this.reviews;
   }
 
@@ -38,17 +40,21 @@ export class ReviewsService {
     let reviews = this.getReviewsForLocalById(id);
   }
   async addReview(localId:string,comment:string,stars:number){
-    console.log(comment)
     return await Api.postReviewForLocal(comment,localId,stars)
       .then(review =>{
-        this.reviews.push(review);
-        this.reviews.sort((a,b)=>{
-          if(a.createdAt > b.createdAt){
-            return -1;
-          }else{
-            return 1
-          }
+        let updatedReviews = [];
+        this.reviews.subscribe(res => {
+          updatedReviews = res;
+          updatedReviews.push(review);
+          updatedReviews.sort((a,b)=>{
+            if(a.createdAt > b.createdAt){
+              return -1;
+            }else{
+              return 1
+            }
+          })
         })
+        this.reviews.next(updatedReviews)
       })
   }
 }

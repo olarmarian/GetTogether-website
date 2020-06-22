@@ -142,6 +142,7 @@ export class LocalDetailsComponent implements OnInit {
         this.comment = "";
         this.commentFormControl.setValue("");
         this.starsFormControl.setValue(1);
+        window.location.reload();
       })
       .catch(() => {
         this.errorSnackbar.open("Something went wrong", "Close", {

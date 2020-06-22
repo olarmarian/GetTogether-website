@@ -21,13 +21,12 @@ export class ReviewListComponent implements OnInit {
   @Input("localId") localId:string;
   @Input("localName") localName:string;
 
-  ngOnInit() {
+  async ngOnInit() {
     this.reviews = [];
-    this.getReviewsByLocalId();
-  }
-
-  async getReviewsByLocalId(){
-    this.reviews =await this.reviewsService.getReviewsForLocalById(this.localId);
+    (await this.reviewsService.getReviewsForLocalById(this.localId)).subscribe(res =>{
+     this.reviews = res; 
+    })
+    
     this.reviewsPage = this.reviews.slice(this.startIndex, this.endIndex);
   }
 

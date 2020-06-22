@@ -145,8 +145,6 @@ export class EditLocalComponent implements OnInit {
       }
       return obj;
     })
-
-    console.log(this.imagesUrlObjects)
   }
 
   removeImage(url){
@@ -156,8 +154,6 @@ export class EditLocalComponent implements OnInit {
       }
       return obj;
     })
-
-    console.log(this.imagesUrlObjects)
   }
 
   onUpdateClick(){

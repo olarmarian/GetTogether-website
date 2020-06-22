@@ -2,8 +2,8 @@ export class Api{
 
     private static urlReservationMicroservice = "http://192.168.0.104:8080/reservations";
     private static urlLocal:string = "http://localhost:5000/gettogether-55ba9/us-central1/api";
-    // private static urlFirebase:string = "https://us-central1-gettogether-55ba9.cloudfunctions.net/api";
-    private static urlFirebase:string= "";
+    private static urlFirebase:string = "https://us-central1-gettogether-55ba9.cloudfunctions.net/api";
+    // private static urlFirebase:string= "";
     private static postMethod:string = 'POST'
     private static deleteMethod:string = 'DELETE'
     private static defaultHeaders = {
@@ -136,15 +136,21 @@ export class Api{
     }
 
     static getTheMostPopular(){
-        return fetch(this.getLocalsUrl()+"/the-most-popular");
+        return fetch(this.getLocalsUrl()+"/the-most-popular",{
+            method:"POST"
+        });
     }
 
     static getTheNewest(){
-        return fetch(this.getLocalsUrl()+"/the-newest");
+        return fetch(this.getLocalsUrl()+"/the-newest",{
+            method:"POST"
+        });
     }
 
     static getTheBiggestRate(){
-        return fetch(this.getLocalsUrl()+"/the-biggest-rate");
+        return fetch(this.getLocalsUrl()+"/the-biggest-rate",{
+            method:"POST"
+        });
     }
 
     static getReviewsByLocalId(id:string){
