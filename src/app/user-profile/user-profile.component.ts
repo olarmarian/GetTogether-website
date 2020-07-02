@@ -18,7 +18,7 @@ import { BehaviorSubject } from "rxjs";
 })
 export class UserProfileComponent implements OnInit {
   private info: string =
-    "You have no local registered ! Do you want to start your own bussiness ?";
+    "You have no local registered ! Do you want to start your own business ?";
   private answer: boolean;
   public user: IUser = null;
 
@@ -91,9 +91,6 @@ export class UserProfileComponent implements OnInit {
         this.local = null;
       });
 
-    await this.fetchReservationsHistory();
-    await this.fetchActiveReservations();
-
     const locals = await this.localsService.getLocals()
     locals.subscribe(res => {
       
@@ -113,6 +110,9 @@ export class UserProfileComponent implements OnInit {
         }
       }
     })
+
+    await this.fetchReservationsHistory();
+    await this.fetchActiveReservations();
   }
 
   openLocalPage(): void {

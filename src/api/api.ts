@@ -2,8 +2,8 @@ export class Api{
 
     private static urlReservationMicroservice = "http://192.168.0.104:8080/reservations";
     private static urlLocal:string = "http://localhost:5000/gettogether-55ba9/us-central1/api";
-    private static urlFirebase:string = "https://us-central1-gettogether-55ba9.cloudfunctions.net/api";
-    // private static urlFirebase:string= "";
+    // private static urlFirebase:string = "https://us-central1-gettogether-55ba9.cloudfunctions.net/api";
+    private static urlFirebase:string= "";
     private static postMethod:string = 'POST'
     private static deleteMethod:string = 'DELETE'
     private static defaultHeaders = {
